@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IMI: Hostile Takeover — 32/64px sprite direction</title>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ui.css">
+<style>
+.cap2{font:12px/1.4 system-ui,sans-serif;color:#bdb9af;margin-top:10px;max-width:390px}
+.cap2 b{color:#ffc83d;display:block;font-size:13px;margin-bottom:2px}
+.mini{position:absolute;right:12px;top:186px;z-index:3;padding:5px;width:86px;height:76px}
+.mini svg{display:block;width:100%;height:100%;image-rendering:pixelated}
+.side{width:470px;display:flex;flex-direction:column;gap:18px}
+.card{background:#1c1d24;border-radius:14px;padding:16px 18px}
+.card h3{margin:0 0 10px;font:600 11px system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#ffc83d}
+.rr{display:grid;grid-template-columns:92px 140px 74px 1fr;gap:10px;align-items:end;padding:10px 0;border-top:1px solid #2b2d38}
+.rr:first-of-type{border-top:0}
+.rr .nm{font:700 12px system-ui,sans-serif;color:#e9e6df;align-self:center}
+.rr .nm small{display:block;font-weight:400;color:#8f8c84;margin-top:3px;font-size:11px}
+.rr canvas,.strip canvas,.tiers canvas{image-rendering:pixelated;background:repeating-conic-gradient(#2a2c38 0 25%,#232531 0 50%) 0 0/16px 16px}
+.strip{display:flex;flex-wrap:wrap;gap:0;margin-top:4px}
+.tiers{display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap}
+.tiers div{font:11px system-ui,sans-serif;color:#8f8c84;text-align:center}
+.card ul{margin:0;padding-left:18px;color:#bdb9af;font-size:13px}
+.card li{margin-bottom:4px}
+</style></head>
+<body>
+<h1>IMI: Hostile Takeover — 32 / 64 px sprite direction</h1>
+<p class="sub">Monkeys now use the real 64×64 renderer from the original game (vendored from <code>crew-art.js</code>), with the roster mapped to our crew. <b>Left:</b> standard camera at 1 art pixel = 1 CSS pixel, with 32×32 world sprites. <b>Middle:</b> close camera on the CEO desk with full 64×64 sprites. <b>Right:</b> the roster at both sizes. The environment is still auto-pixelized from vector placeholders, but the monkeys are the real art.</p>
+<div class="wrap" id="wrap">
+ <div><div class="phone ui" id="S"></div><div class="cap2"><b>Standard camera · 32×32 monkeys · 40×20 tiles</b>Whole floor visible: truck, chain gang, window drop, server room.</div></div>
+ <div><div class="phone ui" id="C"></div><div class="cap2"><b>Close camera · 64×64 monkeys · 64×32 tiles</b>Pinch-zoom or auto-focus when the whistle fires. Taller props keep scale with the bigger monkeys.</div></div>
+ <div class="side">
+  <div class="card"><h3>Crew roster · game variants</h3><div id="roster"></div></div>
+  <div class="card"><h3>Swarm readability · 32×32 at 1:1</h3><div class="strip" id="strip"></div></div>
+  <div class="card"><h3>Sprite tiers</h3><ul>
+   <li><b>64×64 hero:</b> crew cards, close camera, takeover splash, upgrade screens. It’s the existing art, reused as-is.</li>
+   <li><b>32×32 world:</b> default gameplay size. Hand-redrawn from the 64s; the ones here are auto-downsampled placeholders.</li>
+   <li><b>Props / tiles:</b> 40×20 tiles in standard, 64×32 in close. Props are drawn per tier, not scaled.</li>
+   <li><b>Heavy items:</b> 64×64 to 96×96 (safe, vending machine, statue) so a swarm visibly dwarfs one monkey.</li></ul></div>
+ </div>
+</div>
+<script src="vendor/crew-art.js"></script>
+<script src="scene-iso.js"></script>
+<script>
+const E32=['#be4a2f','#d77643','#ead4aa','#e4a672','#b86f50','#733e39','#3e2731','#a22633','#e43b44','#f77622','#feae34','#fee761','#63c74d','#3e8948','#265c42','#193c3e','#124e89','#0099db','#2ce8f5','#ffffff','#c0cbdc','#8b9bb4','#5a6988','#3a4466','#262b44','#181425','#ff0044','#68386c','#b55088','#f6757a','#e8b796','#c28569'];
+const rgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+const PRGB=E32.map(rgb);
+const LUT=new Uint8Array(1<<18).fill(255);
+function nearest(r,g,b){r=r<0?0:r>255?255:r;g=g<0?0:g>255?255:g;b=b<0?0:b>255?255:b;
+  const k=((r>>2)<<12)|((g>>2)<<6)|(b>>2);let v=LUT[k];if(v!==255)return v;
+  const R=(r|2),G=(g|2),B=(b|2);let bd=1e9;v=0;
+  for(let i=0;i<PRGB.length;i++){const a=PRGB[i],dr=R-a[0],dg=G-a[1],db=B-a[2],dd=2*dr*dr+4*dg*dg+3*db*db;if(dd<bd){bd=dd;v=i}}
+  LUT[k]=v;return v}
+const BAY=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
+
+/* ---------- sprites from the original game ---------- */
+const ROLES={
+ breacher:{v:['miner'],pose:'crouch'},
+ hauler:{v:['dockworker','carpenter','grease_mechanic','railroad'],pose:'air'},
+ rigger:{v:['sailor'],pose:'idle'},
+ decoy:{v:['reporter'],pose:'idle'},
+ inspector:{v:['inspector'],pose:'idle'},
+ plain:{v:['runner'],pose:'idle'}};
+const cache=new Map();
+function sprite64(v,pose){const k=v+'|'+pose;if(!cache.has(k)){const c=document.createElement('canvas');c.width=c.height=64;c.getContext('2d').drawImage(CrewArt.pose(v,pose,{expr:'determined'}),0,0);cache.set(k,c)}return cache.get(k)}
+function sprite32(v,pose){const k=v+'|'+pose+'|32';if(cache.has(k))return cache.get(k);
+  const s=sprite64(v,pose),d=s.getContext('2d').getImageData(0,0,64,64).data,o=document.createElement('canvas');o.width=o.height=32;
+  const ox=o.getContext('2d'),od=ox.createImageData(32,32);
+  for(let y=0;y<32;y++)for(let x=0;x<32;x++){const cnt=new Map();let n=0;
+    for(let j=0;j<2;j++)for(let i=0;i<2;i++){const p=((y*2+j)*64+x*2+i)*4;if(d[p+3]>110){const key=d[p]<<16|d[p+1]<<8|d[p+2];cnt.set(key,(cnt.get(key)||0)+1);n++}}
+    if(!n)continue;let best=-1,bc=0,bl=1e9;
+    cnt.forEach((c,key)=>{const l=(key>>16&255)*.3+(key>>8&255)*.59+(key&255)*.11;if(c>bc||(c===bc&&l<bl)){best=key;bc=c;bl=l}});
+    const q=(y*32+x)*4;od.data[q]=best>>16&255;od.data[q+1]=best>>8&255;od.data[q+2]=best&255;od.data[q+3]=255}
+  ox.putImageData(od,0,0);cache.set(k,o);return o}
+function pick(kind,sp){const r=ROLES[kind]||ROLES.plain;const v=r.v[Math.abs(Math.round(sp.x*.37+sp.y*.21))%r.v.length];
+  let pose=r.pose;if(kind==='hauler'&&!sp.up)pose='air';if(kind==='hauler'&&sp.up)pose='launch';return[v,pose]}
+function drawSprite(ctx,sp,size,vx,vy){const [v,pose]=pick(sp.kind,sp);const cv=size===64?sprite64(v,pose):sprite32(v,pose);
+  const x=Math.round(sp.x-vx),y=Math.round(sp.y-vy),fy=size===64?56:28;
+  ctx.fillStyle='rgba(24,20,37,.34)';(size===64?[28,22,14]:[16,12]).forEach((w,i)=>ctx.fillRect(x-w/2,y-1+i,w,1));
+  ctx.save();ctx.translate(x,y);if(sp.f>0)ctx.scale(-1,1);ctx.drawImage(cv,-size/2,-fy);ctx.restore()}
+
+/* ---------- environment pipeline ---------- */
+const tmp=document.createElement('canvas');
+async function raster(svgInner,w,h,vx,vy,dither,opaque){
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="${vx} ${vy} ${w} ${h}">${svgInner}</svg>`;
+  const img=new Image();img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);await img.decode();
+  tmp.width=w;tmp.height=h;const x=tmp.getContext('2d',{willReadFrequently:true});x.clearRect(0,0,w,h);x.drawImage(img,0,0,w,h);
+  const d=x.getImageData(0,0,w,h),p=d.data;
+  for(let j=0;j<h;j++)for(let i=0;i<w;i++){const o=(j*w+i)*4;
+    if(!opaque&&p[o+3]<110){p[o+3]=0;continue}
+    const t=(BAY[(j&3)*4+(i&3)]/16-.47)*dither,q=PRGB[nearest(p[o]+t,p[o+1]+t,p[o+2]+t)];p[o]=q[0];p[o+1]=q[1];p[o+2]=q[2];p[o+3]=255}
+  x.putImageData(d,0,0);const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(tmp,0,0);return c}
+const cloud=(x,y,k)=>`<g fill="#fff"><ellipse cx="${x}" cy="${y}" rx="${46*k}" ry="${14*k}"/><ellipse cx="${x+22*k}" cy="${y-10*k}" rx="${28*k}" ry="${14*k}"/><ellipse cx="${x-20*k}" cy="${y-6*k}" rx="${22*k}" ry="${11*k}"/></g>`;
+const deco=(vx,vy,w,h,k)=>`<defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2d9be0"/><stop offset=".3" stop-color="#2ce8f5"/><stop offset="1" stop-color="#2ce8f5"/></linearGradient></defs><rect x="${vx}" y="${vy}" width="${w}" height="${h}" fill="url(#sk)"/>`+cloud(vx+90,vy+190,k)+cloud(vx+w-70,vy+250,k)+cloud(vx+80,vy+h-110,k)+cloud(vx+w-60,vy+h-60,k);
+const baseT=(o)=>({font:'monospace',noText:true,sprites:true,grid:.28,fur:'#b86f50',face:'#e8b796',label:'#3e2731',net:'#63c74d',
+ line:'#3e2731',lt:.2,dk:.26,accent:'#fee761',
+ pal:{slab:'#733e39',pad:'#b86f50',fA:'#c0cbdc',fB:'#5a6988',fC:'#b55088',wall:'#ead4aa',wallLow:'#e8b796',rubble:'#c28569',door:'#a22633',part:'#f6757a',
+  desk:'#d77643',cab:'#8b9bb4',chair:'#68386c',rack:'#262b44',vend:'#e43b44',safe:'#5a6988',statue:'#feae34',ceo:'#be4a2f',mon:'#3a4466',truck:'#fee761',truckRail:'#feae34',glass:'#2ce8f5'},...o});
+
+async function build(el,cfg){
+  const W=378,H=788,[vx,vy]=cfg.vb,T=baseT(cfg.T);
+  iso(T);const L=iso.LIST,ov=iso.OV.slice();
+  const cv=document.createElement('canvas');cv.width=W;cv.height=H;const ctx=cv.getContext('2d');
+  let chunk=cfg.first?deco(vx,vy,W,H,cfg.k):'',opaque=true;
+  const flush=async()=>{if(!chunk)return;ctx.drawImage(await raster(chunk,W,H,vx,vy,cfg.dither,opaque),0,0);chunk='';opaque=false};
+  for(const e of L){if(e.sp){await flush();drawSprite(ctx,e.sp,cfg.size,vx,vy)}else chunk+=e.s}
+  await flush();
+  el.innerHTML=`<canvas class="bg"></canvas><div class="ovl"></div>${hud(cfg.mini)}`;
+  const bg=el.querySelector('canvas.bg');bg.width=W;bg.height=H;bg.getContext('2d').drawImage(cv,0,0);
+  el.querySelector('.ovl').innerHTML=ov.filter(o=>!/OPEN PLAN|SERVER RM|C-SUITE/.test(o.t)).map(o=>{const l=(o.x-vx)/W*100,t=(o.y-vy)/H*100;
+    return (l<3||l>97||t<20||t>78)?'':`<span style="left:${l.toFixed(2)}%;top:${t.toFixed(2)}%">${o.t.replace('↓','v').replace('▸','>').replace('·','-')}</span>`}).join('');
+  el.querySelectorAll('canvas[data-ch]').forEach(c=>{const [v,p]=c.dataset.ch.split(':');c.getContext('2d').drawImage(sprite32(v,p),0,0)});
+  el.querySelectorAll('canvas[data-wh]').forEach(wh);
+}
+function wh(c){const x=c.getContext('2d'),D='#181425',y='#feae34',y2='#fee761',r=(col,a,b,w,h)=>{x.fillStyle=col;x.fillRect(a,b,w,h)};
+  r(D,0,5,3,6);r(y,1,6,1,4);r(D,3,3,3,10);r(y,3,4,2,8);r(D,6,0,6,16);r(y,7,1,4,14);r(y2,9,3,2,10);r(D,12,1,2,14)}
+const hud=(mini)=>`
+<div class="top"><div class="job"><small>JOB 04 · HOSTILE TAKEOVER</small><b>Dunmore &amp; Pike<br>Tax Services</b></div><div class="timer px"><span class="tm">11:42</span><small>LEFT</small></div></div>
+<div class="quota"><div class="bar"><i style="width:63%"></i></div><div class="qrow"><span>SALVAGE 63%</span><span>$48,200 / $76,500</span></div></div>
+<div class="toast px"><span class="w">!</span><span class="t">INSPECTOR IN SERVER RM</span></div>
+${mini?`<div class="mini px"><svg viewBox="0 0 76 66" shape-rendering="crispEdges"><rect x="0" y="0" width="38" height="66" fill="#8b9bb4"/><rect x="38" y="0" width="38" height="31" fill="#5a6988"/><rect x="38" y="31" width="38" height="35" fill="#b55088"/><path d="M0 24H76" stroke="#fee761" stroke-dasharray="3 3"/><rect x="33" y="24" width="10" height="6" fill="#ead4aa"/><g fill="#0099db"><rect x="6" y="22" width="3" height="3"/><rect x="16" y="22" width="3" height="3"/><rect x="26" y="22" width="3" height="3"/><rect x="48" y="22" width="3" height="3"/><rect x="58" y="22" width="3" height="3"/></g><g fill="#feae34"><rect x="50" y="40" width="3" height="3"/><rect x="55" y="38" width="3" height="3"/><rect x="60" y="40" width="3" height="3"/><rect x="62" y="46" width="3" height="3"/><rect x="58" y="50" width="3" height="3"/><rect x="52" y="50" width="3" height="3"/></g><rect x="3" y="3" width="70" height="60" fill="none" stroke="#fff" stroke-width="1"/></svg></div>`:`<div class="manifest" style="bottom:150px"><div class="mf px"><b>RACKS x3</b><u>$9,000</u></div><div class="mf px"><b>VAULT SAFE</b><u>$12,000</u></div><div class="mf px"><b>CEO DESK</b><u>$6,400</u></div></div>`}
+<div class="bot"><div class="crew">
+ <button class="chip px sel"><canvas width="32" height="32" data-ch="miner:idle"></canvas><span class="lbl"><b>BREACH</b><i>2 smashing</i></span><span class="cnt">4</span></button>
+ <button class="chip px"><canvas width="32" height="32" data-ch="dockworker:idle"></canvas><span class="lbl"><b>HAUL</b><i>chain x1</i></span><span class="cnt">21</span></button>
+ <button class="chip px"><canvas width="32" height="32" data-ch="sailor:idle"></canvas><span class="lbl"><b>RIG</b><i>1 window</i></span><span class="cnt">2</span></button>
+ <button class="chip px"><canvas width="32" height="32" data-ch="reporter:idle"></canvas><span class="lbl"><b>DECOY</b><i>stalling</i></span><span class="cnt">2</span></button></div>
+ <button class="whistle px"><canvas data-wh width="14" height="16"></canvas><span class="t">WHISTLE</span></button></div>`;
+
+/* roster + strip */
+const RR=[['BREACHER','miner','crouch','smashes walls / locked doors'],['HAULER','dockworker','air','chain-gang carriers'],['HAULER (alt)','grease_mechanic','air','variety in the crowd'],['RIGGER','sailor','idle','zip-lines + catch-nets'],['DECOY','reporter','idle','trench coat + fedora'],['INSPECTOR','inspector','idle','the enemy, with monocle']];
+document.getElementById('roster').innerHTML=RR.map(r=>`<div class="rr"><div class="nm">${r[0]}<small>${r[1]}<br>${r[3]}</small></div><div><canvas width="64" height="64" style="width:128px;height:128px" data-r="${r[1]}:${r[2]}:64"></canvas></div><div><canvas width="32" height="32" style="width:64px;height:64px" data-r="${r[1]}:${r[2]}:32"></canvas></div><div><canvas width="32" height="32" data-r="${r[1]}:${r[2]}:32"></canvas><div style="font:10px system-ui;color:#8f8c84;margin-top:4px">32px · 1:1</div></div></div>`).join('');
+document.getElementById('strip').innerHTML=Array.from({length:22},(_,i)=>`<canvas width="32" height="32" data-r="${['dockworker','carpenter','grease_mechanic','railroad','miner','sailor','reporter'][i%7]}:${i%3?'air':'launch'}:32"></canvas>`).join('');
+
+(async()=>{
+  const ready=()=>document.querySelectorAll('[data-r]').forEach(c=>{const [v,p,s]=c.dataset.r.split(':');c.getContext('2d').drawImage(s==='64'?sprite64(v,p):sprite32(v,p),0,0)});
+  ready();
+  await build(document.getElementById('S'),{size:32,first:true,dither:10,k:1,vb:[-172,-344],T:{hw:20,hh:10,zs:30,stroke:1.3,mstroke:1.3}});
+  await build(document.getElementById('C'),{size:64,first:true,dither:10,k:1.6,mini:true,vb:[-155,-335],T:{hw:32,hh:16,zs:60,stroke:1.6,mstroke:1.6}});
+})();
+</script></body></html>

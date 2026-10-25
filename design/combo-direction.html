@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IMI: Hostile Takeover — combo direction (P1 art + P3 UI)</title>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+:root{--bg:#262b44;--hi:#3a4466;--lo:#181425;--ink:#ead4aa;--mute:#8b9bb4;--acc:#feae34;--acc2:#fee761;--red:#e43b44;--redlo:#a22633;--green:#63c74d}
+body{margin:0;background:#15161b;color:#e9e6df;font:14px/1.45 system-ui,-apple-system,sans-serif;padding:28px 16px 60px}
+h1{font-size:22px;margin:0 0 4px}
+.sub{color:#9a978f;max-width:820px;margin:0 0 26px}
+.wrap{display:flex;flex-wrap:wrap;gap:40px;justify-content:center;align-items:flex-start}
+.phone{position:relative;width:390px;height:800px;overflow:hidden;border:6px solid #000;border-radius:38px;box-shadow:0 20px 50px #0008}
+.phone canvas.bg{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
+.ovl{position:absolute;inset:0;pointer-events:none}
+.ovl span{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;font-size:9px;line-height:1;font-weight:700;color:#fff;text-shadow:1px 1px 0 var(--lo),-1px 1px 0 var(--lo),1px -1px 0 var(--lo),-1px -1px 0 var(--lo)}
+
+/* ---------- UI system (shared by phone + kit) ---------- */
+.ui{font-family:Silkscreen,ui-monospace,monospace;color:var(--ink);font-size:9px;line-height:1}
+.ui *{font-family:inherit}
+.px{background:var(--bg);border:3px solid var(--lo);box-shadow:inset 0 3px 0 var(--hi),inset 0 -3px 0 var(--lo);
+  clip-path:polygon(0 4px,4px 4px,4px 0,calc(100% - 4px) 0,calc(100% - 4px) 4px,100% 4px,100% calc(100% - 4px),calc(100% - 4px) calc(100% - 4px),calc(100% - 4px) 100%,4px 100%,4px calc(100% - 4px),0 calc(100% - 4px))}
+/* Silkscreen sits high in its line box: nudge 1px so caps look centred */
+.t{display:block;line-height:1;padding-top:1px}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:active:not(:disabled),.pressed{transform:translateY(2px)}
+
+.top,.quota,.manifest,.bot,.toast{position:absolute;left:0;right:0;z-index:3}
+.top{top:0;padding:30px 12px 0;display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.job{padding-top:2px;text-shadow:2px 2px 0 var(--lo);color:#fff}
+.job small{display:block;font-size:7px;color:var(--acc);margin-bottom:5px}
+.job b{display:block;font-size:10px;font-weight:700;line-height:1.35}
+.timer{width:92px;height:50px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;color:var(--acc2)}
+.timer .tm{font-size:24px;font-weight:700;line-height:1;padding-top:2px}
+.timer small{font-size:6px;color:var(--mute);line-height:1}
+.quota{top:94px;padding:0 12px}
+.bar{position:relative;height:18px;background:var(--lo);border:3px solid var(--bg);outline:2px solid var(--lo);padding:2px}
+.bar i{display:block;height:100%;background:repeating-linear-gradient(90deg,var(--acc) 0 6px,#f77622 6px 8px)}
+.qrow{display:flex;justify-content:space-between;font-size:7px;margin-top:7px;color:#fff;text-shadow:1px 1px 0 var(--lo)}
+.toast{top:146px;left:50%;right:auto;transform:translateX(-50%);width:max-content;height:28px;display:flex;align-items:center;gap:8px;padding:0 10px 0 6px;background:var(--redlo);color:#fff}
+.toast .w{width:16px;height:16px;background:var(--red);box-shadow:inset 0 -2px 0 var(--redlo);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;padding-top:2px}
+.manifest{bottom:150px;padding:0 10px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.mf{height:40px;padding:0 9px;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.mf b{font-size:8px;font-weight:700}
+.mf u{text-decoration:none;font-size:8px;color:var(--acc)}
+.bot{bottom:0;padding:8px 10px 18px;display:flex;gap:8px;align-items:stretch}
+.crew{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.chip{height:50px;display:grid;grid-template-columns:30px 1fr 22px;align-items:center;gap:5px;padding:0 5px;text-align:left}
+.chip canvas{width:30px;height:35px;image-rendering:pixelated;justify-self:center}
+.chip .lbl{display:flex;flex-direction:column;gap:5px;min-width:0}
+.chip .lbl b{font-size:8px;font-weight:700}
+.chip .lbl i{font-style:normal;font-size:6px;white-space:nowrap;color:var(--mute)}
+.chip .cnt{height:22px;font-size:10px;display:flex;align-items:center;justify-content:center;background:var(--lo);font-weight:700;padding-top:2px}
+.chip.sel{background:var(--hi);border-color:var(--acc);box-shadow:inset 0 3px 0 #5a6988,inset 0 -3px 0 var(--lo)}
+.chip.sel .cnt{background:var(--acc);color:var(--lo)}
+.chip:disabled{opacity:.5;cursor:default}
+.whistle{position:relative;width:92px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:var(--red);border-color:var(--lo);color:#fff;box-shadow:inset 0 3px 0 #f6757a,inset 0 -5px 0 var(--redlo);overflow:hidden}
+.whistle canvas{width:56px;height:64px;image-rendering:pixelated}
+.whistle .t{font-size:9px;font-weight:700;letter-spacing:.1em;margin-right:-.1em;position:relative;z-index:1}
+.whistle.cd{background:var(--hi);box-shadow:inset 0 3px 0 #5a6988,inset 0 -5px 0 var(--lo);color:var(--mute)}
+.whistle.cd::after{content:"";position:absolute;left:0;right:0;bottom:0;height:var(--p,40%);background:#ffffff14}
+.whistle.cd canvas{opacity:.5}
+.whistle:disabled{opacity:.6;cursor:default}
+
+/* ---------- UI kit sheet ---------- */
+.kit{width:430px;background:#1c1d24;border-radius:14px;padding:18px 18px 22px;display:flex;flex-direction:column;gap:20px}
+.kit h3{margin:0 0 10px;font:600 11px system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#ffc83d}
+.kit .demo{background:#2b3a5f;padding:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}
+.kit .cap{font:11px system-ui,sans-serif;color:#8f8c84;margin-top:6px}
+.kit .chip{width:190px}.kit .whistle{height:110px}
+.kit .icons{display:flex;gap:14px;align-items:flex-end}
+.kit .icons canvas{image-rendering:pixelated}
+.sw{display:grid;grid-template-columns:repeat(16,1fr);gap:0}.sw i{height:16px}
+.kit ul{margin:0;padding-left:18px;color:#bdb9af;font-size:13px}
+.state{display:flex;flex-direction:column;gap:4px}
+.state .cap{margin:0}
+</style></head>
+<body>
+<h1>IMI: Hostile Takeover — combo direction</h1>
+<p class="sub">P1's bright, dark-outlined pixel art (189×394 canvas shown at 2×, Endesga-32 palette) with P3's dark-purple HUD. Buttons are rebuilt on a grid: fixed icon, label and count columns, optical text centring, and pressed, selected and cooldown states. The kit on the right is the same CSS the phone uses.</p>
+<div class="wrap">
+<div class="phone ui" id="phone"><canvas class="bg"></canvas><div class="ovl"></div>
+ <div class="top"><div class="job"><small>JOB 04 · HOSTILE TAKEOVER</small><b>Dunmore &amp; Pike<br>Tax Services</b></div><div class="timer px"><span class="tm">11:42</span><small>LEFT</small></div></div>
+ <div class="quota"><div class="bar"><i style="width:63%"></i></div><div class="qrow"><span>SALVAGE 63%</span><span>$48,200 / $76,500</span></div></div>
+ <div class="toast px"><span class="w">!</span><span class="t">INSPECTOR IN SERVER RM</span></div>
+ <div class="manifest"><div class="mf px"><b>RACKS x3</b><u>$9,000</u></div><div class="mf px"><b>VAULT SAFE</b><u>$12,000</u></div><div class="mf px"><b>CEO DESK</b><u>$6,400</u></div></div>
+ <div class="bot"><div class="crew">
+  <button class="chip px sel"><canvas data-i="breacher" width="12" height="14"></canvas><span class="lbl"><b>BREACH</b><i>2 smashing</i></span><span class="cnt">4</span></button>
+  <button class="chip px"><canvas data-i="hauler" width="12" height="14"></canvas><span class="lbl"><b>HAUL</b><i>chain x1</i></span><span class="cnt">21</span></button>
+  <button class="chip px"><canvas data-i="rigger" width="12" height="14"></canvas><span class="lbl"><b>RIG</b><i>1 window</i></span><span class="cnt">2</span></button>
+  <button class="chip px"><canvas data-i="decoy" width="12" height="14"></canvas><span class="lbl"><b>DECOY</b><i>stalling</i></span><span class="cnt">2</span></button></div>
+  <button class="whistle px"><canvas data-i="whistle" width="14" height="16"></canvas><span class="t">WHISTLE</span></button></div>
+</div>
+
+<div class="kit ui">
+ <div><h3>Primary action · Whistle</h3><div class="demo">
+  <div class="state"><button class="whistle px" style="width:100px;height:110px"><canvas data-i="whistle" width="14" height="16"></canvas><span class="t">WHISTLE</span></button><div class="cap">ready</div></div>
+  <div class="state"><button class="whistle px pressed" style="width:100px;height:110px"><canvas data-i="whistle" width="14" height="16"></canvas><span class="t">WHISTLE</span></button><div class="cap">pressed (−2px)</div></div>
+  <div class="state"><button class="whistle px cd" style="width:100px;height:110px;--p:62%"><canvas data-i="whistle" width="14" height="16"></canvas><span class="t">12s</span></button><div class="cap">cooldown fill</div></div></div></div>
+ <div><h3>Crew chips</h3><div class="demo">
+  <div class="state"><button class="chip px"><canvas data-i="hauler" width="12" height="14"></canvas><span class="lbl"><b>HAUL</b><i>chain x1</i></span><span class="cnt">21</span></button><div class="cap">default</div></div>
+  <div class="state"><button class="chip px sel"><canvas data-i="breacher" width="12" height="14"></canvas><span class="lbl"><b>BREACH</b><i>2 smashing</i></span><span class="cnt">4</span></button><div class="cap">selected</div></div>
+  <div class="state"><button class="chip px" disabled><canvas data-i="decoy" width="12" height="14"></canvas><span class="lbl"><b>DECOY</b><i>locked</i></span><span class="cnt">0</span></button><div class="cap">disabled</div></div>
+  <div class="state"><button class="chip px pressed"><canvas data-i="rigger" width="12" height="14"></canvas><span class="lbl"><b>RIG</b><i>1 window</i></span><span class="cnt">2</span></button><div class="cap">pressed</div></div></div></div>
+ <div><h3>Panels · alerts · progress</h3><div class="demo" style="flex-direction:column;align-items:stretch">
+  <div style="display:flex;gap:10px;align-items:center"><div class="timer px"><span class="tm">11:42</span><small>LEFT</small></div><div class="mf px" style="flex:1"><b>CEO DESK</b><u>$6,400</u></div></div>
+  <div class="toast px" style="position:static;transform:none;left:auto"><span class="w">!</span><span class="t">INSPECTOR IN SERVER RM</span></div>
+  <div class="bar"><i style="width:63%"></i></div></div></div>
+ <div><h3>Icon set · 12×14 / 14×16 px, drawn at 4×</h3><div class="demo"><div class="icons">
+  <canvas data-i="breacher" width="12" height="14" style="width:48px;height:56px"></canvas><canvas data-i="hauler" width="12" height="14" style="width:48px;height:56px"></canvas><canvas data-i="rigger" width="12" height="14" style="width:48px;height:56px"></canvas><canvas data-i="decoy" width="12" height="14" style="width:48px;height:56px"></canvas><canvas data-i="whistle" width="14" height="16" style="width:56px;height:64px"></canvas></div></div></div>
+ <div><h3>Palette · Endesga-32</h3><div class="sw" id="sw"></div></div>
+ <div><h3>Rules</h3><ul>
+  <li>Font: Silkscreen, sizes 6 / 7 / 8 / 9 / 11 / 24 only; body text never below 7px.</li>
+  <li>All text sits in a fixed-height flex box, with a 1px nudge for optical centring.</li>
+  <li>Touch targets ≥ 44px tall; chips are 50px, whistle is 100×104.</li>
+  <li>Pressed = −2px move; selected = amber border + amber count well.</li>
+  <li>HUD hugs the top and bottom thumb zones; the middle 60% belongs to the scene.</li></ul></div>
+</div></div>
+
+<script src="scene-iso.js"></script>
+<script>
+const E32=['#be4a2f','#d77643','#ead4aa','#e4a672','#b86f50','#733e39','#3e2731','#a22633','#e43b44','#f77622','#feae34','#fee761','#63c74d','#3e8948','#265c42','#193c3e','#124e89','#0099db','#2ce8f5','#ffffff','#c0cbdc','#8b9bb4','#5a6988','#3a4466','#262b44','#181425','#ff0044','#68386c','#b55088','#f6757a','#e8b796','#c28569'];
+const VB='-198 -358 396 826';
+const grad=s=>`<defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1">${s.map(([o,c])=>`<stop offset="${o}" stop-color="${c}"/>`).join('')}</linearGradient></defs><rect x="-198" y="-358" width="396" height="826" fill="url(#sk)"/>`;
+const cloud=(x,y)=>`<ellipse cx="${x}" cy="${y}" rx="46" ry="14" fill="#fff"/><ellipse cx="${x+22}" cy="${y-10}" rx="28" ry="14" fill="#fff"/><ellipse cx="${x-20}" cy="${y-6}" rx="22" ry="11" fill="#fff"/>`;
+const T={font:'monospace',noText:true,vb:VB,grid:.28,fur:'#b86f50',face:'#e8b796',label:'#3e2731',net:'#63c74d',
+ stroke:2.2,mstroke:1.9,line:'#3e2731',lt:.2,dk:.26,ms:1.35,eye:1.5,accent:'#fee761',
+ pal:{slab:'#733e39',pad:'#b86f50',fA:'#c0cbdc',fB:'#5a6988',fC:'#b55088',wall:'#ead4aa',wallLow:'#e8b796',rubble:'#c28569',door:'#a22633',part:'#f6757a',
+  desk:'#d77643',cab:'#8b9bb4',chair:'#68386c',rack:'#262b44',vend:'#e43b44',safe:'#5a6988',statue:'#feae34',ceo:'#be4a2f',mon:'#3a4466',truck:'#fee761',truckRail:'#feae34',glass:'#2ce8f5'},
+ deco:grad([[0,'#2d9be0'],[.3,'#2ce8f5'],[.62,'#2ce8f5'],[.7,'#ead4aa'],[1,'#ead4aa']])+cloud(-110,-250)+cloud(120,-190)+cloud(-120,260)+cloud(130,300)};
+const rgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+const BAY=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
+async function pixelize(svg,w,h,pal,dither){
+  svg=svg.replace('<svg ',`<svg width="${w}" height="${h}" `);
+  const img=new Image();img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);await img.decode();
+  const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d',{willReadFrequently:true});x.drawImage(img,0,0,w,h);
+  const d=x.getImageData(0,0,w,h),p=d.data,P=pal.map(rgb);
+  for(let j=0;j<h;j++)for(let i=0;i<w;i++){const o=(j*w+i)*4,t=(BAY[(j&3)*4+(i&3)]/16-.47)*dither;const r=p[o]+t,g=p[o+1]+t,b=p[o+2]+t;let best=0,bd=1e9;
+    for(let k=0;k<P.length;k++){const a=P[k],dr=r-a[0],dg=g-a[1],db=b-a[2],dd=2*dr*dr+4*dg*dg+3*db*db;if(dd<bd){bd=dd;best=k}}
+    p[o]=P[best][0];p[o+1]=P[best][1];p[o+2]=P[best][2];p[o+3]=255}
+  x.putImageData(d,0,0);return c}
+const pk={dark:'#181425',y:'#feae34',y2:'#fee761',b:'#0099db',g:'#63c74d',fur:'#b86f50',face:'#e8b796',mouth:'#c28569'};
+function icon(c,kind){const x=c.getContext('2d'),D=pk.dark,r=(col,a,b,w,h)=>{x.fillStyle=col;x.fillRect(a,b,w,h)};
+  if(kind==='whistle'){r(D,0,5,3,6);r(pk.y,1,6,1,4);r(D,3,3,3,10);r(pk.y,3,4,2,8);r(D,6,0,6,16);r(pk.y,7,1,4,14);r(pk.y2,9,3,2,10);r(D,12,1,2,14);return}
+  const cap={breacher:pk.y,hauler:pk.b,rigger:pk.g,decoy:'#555a66'}[kind];
+  r(D,0,5,3,5);r(D,9,5,3,5);r(pk.fur,1,6,2,3);r(pk.fur,9,6,2,3);r(D,2,3,8,10);r(pk.fur,3,4,6,8);
+  r(pk.face,4,7,4,4);r(D,4,6,1,1);r(D,7,6,1,1);r(pk.mouth,5,10,2,1);r(D,2,0,8,5);r(cap,3,1,6,3);r(D,2,4,8,1);
+  if(kind==='decoy'){r(D,3,6,3,2);r(D,6,6,3,2);r('#fff',4,6,1,1);r('#fff',7,6,1,1)}}
+document.querySelectorAll('canvas[data-i]').forEach(k=>icon(k,k.dataset.i));
+document.getElementById('sw').innerHTML=E32.map(c=>`<i style="background:${c}"></i>`).join('');
+(async()=>{
+  const el=document.getElementById('phone'),w=189,h=394;
+  const svg=iso(T),ov=iso.OV.filter(o=>!/OPEN PLAN|SERVER RM|C-SUITE/.test(o.t));
+  const cv=await pixelize(svg,w,h,E32,12),bg=el.querySelector('canvas.bg');bg.width=w;bg.height=h;bg.getContext('2d').drawImage(cv,0,0);
+  const [vx,vy,vw,vh]=VB.split(' ').map(Number);
+  el.querySelector('.ovl').innerHTML=ov.map(o=>`<span style="left:${((o.x-vx)/vw*100).toFixed(2)}%;top:${((o.y-vy)/vh*100).toFixed(2)}%">${o.t.replace('↓','v').replace('▸','>').replace('·','-')}</span>`).join('');
+})();
+</script></body></html>

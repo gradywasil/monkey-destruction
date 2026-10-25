@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IMI: Hostile Takeover — Art Direction Comps</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#15161b;color:#e9e6df;font:14px/1.45 system-ui,-apple-system,sans-serif;padding:28px 16px 60px}
+h1{font-size:22px;margin:0 0 4px}
+.sub{color:#9a978f;max-width:760px;margin:0 0 28px}
+.row{display:flex;flex-wrap:wrap;gap:36px;justify-content:center}
+.dir{width:390px}
+.dir h2{font-size:16px;margin:0 0 2px}
+.dir .tag{color:#ffc83d;font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.dir ul{padding-left:18px;margin:12px 0 0;color:#bdb9af;font-size:13px}
+.sw{display:flex;gap:4px;margin-top:10px}.sw i{flex:1;height:22px;border-radius:5px}
+.phone{position:relative;width:390px;height:800px;border-radius:38px;overflow:hidden;border:6px solid #000;box-shadow:0 20px 50px #0008;display:flex;flex-direction:column}
+.stage{flex:1;min-height:0;position:relative}
+.manifest{position:absolute;z-index:3;left:12px;right:12px;bottom:6px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.mf{padding:6px 8px;font-size:10px;line-height:1.25}.mf b{display:block;font-size:12px}.mf u{text-decoration:none;display:block;opacity:.7}
+.A .mf{background:#ffffffc0;border-radius:12px}
+.B .mf{background:#fff7e0;border:3px solid #3a2216;border-radius:12px;box-shadow:0 3px 0 #3a2216}
+.C .mf{background:#0a1d34;border:1px solid #5ec8ff88}
+.stage svg{position:absolute;inset:0;width:100%;height:100%}
+.hud{position:relative;z-index:2;padding:12px 14px}
+.job small{display:block;font-size:10px;letter-spacing:.1em;opacity:.7}
+.job b{font-size:13px}
+.top{display:flex;justify-content:space-between;align-items:flex-start;padding-top:30px}
+.timer{font-size:34px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+.timer small{display:block;font-size:9px;letter-spacing:.12em;text-align:right;opacity:.7;font-weight:600}
+.quota{padding:0 14px 6px;position:relative;z-index:2}
+.bar{height:12px;border-radius:8px;position:relative;overflow:hidden}
+.bar i{display:block;height:100%}
+.qrow{display:flex;justify-content:space-between;font-size:11px;margin-top:4px;font-weight:600}
+.toast{position:absolute;z-index:3;top:8px;left:50%;transform:translateX(-50%);padding:6px 12px;font-size:12px;font-weight:700;white-space:nowrap}
+.bot{padding:10px 12px 22px;display:flex;gap:8px;align-items:stretch}
+.crew{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.chip{display:flex;align-items:center;gap:6px;padding:7px 8px;font-size:12px;font-weight:700}
+.chip em{font-style:normal;font-size:18px}
+.chip span{display:block;font-size:9px;font-weight:600;opacity:.65;letter-spacing:.04em}
+.chip b{margin-left:auto;font-size:16px}
+.whistle{width:104px;border:0;font:inherit;font-weight:900;font-size:11px;letter-spacing:.08em;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.whistle em{font-style:normal;font-size:34px}
+
+/* A — Flat Corporate */
+.A{background:linear-gradient(#fdf1de,#f4d9bd);color:#2a2a33;font-family:system-ui,-apple-system,"SF Pro Display",sans-serif}
+.A .bar{background:#fff8}.A .bar i{background:linear-gradient(90deg,#ffb52e,#ffd35a)}
+.A .toast{background:#fff;border-radius:99px;box-shadow:0 4px 14px #0002;color:#c0392b}
+.A .chip{background:#ffffffd0;border-radius:14px;box-shadow:0 2px 8px #0001}
+.A .whistle{background:#ffc83d;border-radius:26px;color:#2a2a33;box-shadow:0 6px 16px #d9a21a66}
+/* B — Toy Diorama */
+.B{background:linear-gradient(#6fd3e0,#bdf0d6 60%,#fff0b8);color:#3a2216;font-family:ui-rounded,"SF Pro Rounded","Arial Rounded MT Bold",system-ui,sans-serif}
+.B .job b,.B .chip,.B .toast,.B .timer{font-weight:900}
+.B .timer{background:#fff7e0;border:3px solid #3a2216;border-radius:14px;padding:4px 10px;box-shadow:0 3px 0 #3a2216}
+.B .bar{background:#fff7e0;border:3px solid #3a2216;border-radius:99px;height:18px}.B .bar i{background:repeating-linear-gradient(-45deg,#ff9f1c 0 8px,#ffbf47 8px 16px)}
+.B .toast{background:#ff5d4d;color:#fff;border:3px solid #3a2216;border-radius:14px;box-shadow:0 3px 0 #3a2216}
+.B .chip{background:#fff7e0;border:3px solid #3a2216;border-radius:16px;box-shadow:0 4px 0 #3a2216}
+.B .whistle{background:#ff5d4d;color:#fff;border:3px solid #3a2216;border-radius:50%;width:112px;height:112px;align-self:center;box-shadow:0 6px 0 #3a2216}
+/* C — Blueprint */
+.C{background:#0d2745;color:#cfe9ff;font-family:ui-monospace,"SF Mono",Menlo,monospace}
+.C .bar{background:#0a1d34;border:1px solid #5ec8ff;border-radius:0;height:14px;background-image:repeating-linear-gradient(90deg,#5ec8ff44 0 1px,transparent 1px 10%)}
+.C .bar i{background:#ffc83d}
+.C .job b{color:#fff}
+.C .timer{color:#ffc83d}
+.C .toast{background:#ff4d4d22;border:1px solid #ff4d4d;color:#ff9a9a;border-radius:0}
+.C .chip{background:#0a1d34;border:1px solid #5ec8ff88;border-radius:0}
+.C .whistle{background:#ffc83d;color:#0d2745;border:0;border-radius:0;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+.stamp{position:absolute;z-index:3;right:14px;top:190px;font-weight:800;color:#ff5a5a;border:2px solid #ff5a5a;padding:2px 8px;transform:rotate(-8deg);font-size:11px;letter-spacing:.1em;opacity:.85}
+</style></head>
+<body>
+<h1>IMI: Hostile Takeover — art direction comps</h1>
+<p class="sub">Same scene in three looks: Dunmore &amp; Pike Tax Services, 11:42 left. Chain gang running through a breached wall, a rigged window drop, decoys stalling an inspector, and a whistle swarm on the CEO desk. All 390×800 portrait, with the HUD in the thumb zones.</p>
+<div class="row" id="row"></div>
+
+<script>
+/* ---------- helpers ---------- */
+const hex=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+const mix=(h,t,a)=>{const c=hex(h),k=hex(t);return '#'+c.map((v,i)=>Math.round(v+(k[i]-v)*a).toString(16).padStart(2,'0')).join('')};
+
+/* ---------- shared scene data (game units: x,y tiles; building 8 x 6) ---------- */
+const KD={ // w,d,h,color
+  desk:[1.1,.6,.5,'desk'],cab:[.45,.5,.85,'cab'],chair:[.4,.4,.4,'chair'],rack:[.7,.7,1.6,'rack'],
+  vend:[.7,.7,1.4,'vend'],safe:[.8,.8,1.0,'safe'],statue:[.45,.45,1.0,'statue'],ceo:[2.0,1.0,.7,'ceo'],mon:[.35,.3,.3,'mon']};
+const ITEMS=[
+ ['desk',.6,.5],['desk',2.0,.5],['desk',.6,4.7],['desk',2.0,4.7],
+ ['cab',.3,1.2],['cab',3.0,1.3],['cab',3.0,3.7],
+ ['chair',1.0,1.3],['chair',2.4,1.3],['chair',1.1,4.1],['chair',2.5,4.1],
+ ['rack',4.0,.4],['rack',4.7,.4],['rack',5.4,.4],['vend',6.4,.4],
+ ['ceo',4.6,4.2],['safe',7.0,3.7],['statue',4.0,5.2]];
+const MONS=[[.8,.65],[2.2,.65],[.8,4.85],[2.2,4.85]]; // sit on desks (z .5)
+const CHAIN=[.5,1.3,2.1,2.9,3.7,4.5,5.3], CY=2.5;
+const SWARM=[[4.3,4.4],[4.3,4.9],[4.5,5.4],[5.0,5.45],[5.6,5.45],[6.2,5.45],[6.8,5.2],[6.85,4.7],[6.8,4.3],[6.3,3.95],[5.6,3.95],[5.0,3.95],[4.6,3.95]];
+
+/* ---------- ISOMETRIC renderer (A, B) ---------- */
+function iso(T){
+  const hw=22,hh=11,zs=26,H=2.0;
+  const P=(x,y,z=0)=>[(x-y)*hw,(x+y)*hh-z*zs];
+  const pts=a=>a.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+  const sw=T.stroke?` stroke="${T.line}" stroke-width="${T.stroke}" stroke-linejoin="round"`:'';
+  const L=[]; const add=(k,s)=>L.push({k,s});
+  const tri=b=>[mix(b,'#ffffff',T.lt),b,mix(b,'#000000',T.dk)];
+  function box(x,y,w,d,h,base,z0=0,k){
+    const c=Array.isArray(base)?base:tri(base);
+    const top=[P(x,y,z0+h),P(x+w,y,z0+h),P(x+w,y+d,z0+h),P(x,y+d,z0+h)];
+    const lf=[P(x,y+d,z0),P(x+w,y+d,z0),P(x+w,y+d,z0+h),P(x,y+d,z0+h)];
+    const rt=[P(x+w,y,z0),P(x+w,y+d,z0),P(x+w,y+d,z0+h),P(x+w,y,z0+h)];
+    add(k??(x+w/2+y+d/2+z0*.01),`<g${sw}><polygon points="${pts(lf)}" fill="${c[1]}"/><polygon points="${pts(rt)}" fill="${c[2]}"/><polygon points="${pts(top)}" fill="${c[0]}"/></g>`);
+  }
+  const faceL=(x,y,w,d,u0,u1,z0,z1,fill,k)=>add(k,`<polygon points="${pts([P(x+u0,y+d,z0),P(x+u1,y+d,z0),P(x+u1,y+d,z1),P(x+u0,y+d,z1)])}" fill="${fill}"/>`);
+  const dot=(x,y,z,r,fill,k)=>{const p=P(x,y,z);add(k,`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${r}" fill="${fill}"/>`)};
+  const poly=(arr,fill,k,extra='')=>add(k,`<polygon points="${pts(arr)}" fill="${fill}" ${extra}/>`);
+  const pal=T.pal;
+
+  /* ground slabs */
+  add(-300,`<ellipse cx="0" cy="${P(4,3,-.3)[1]+40}" rx="230" ry="60" fill="#000" opacity=".1"/>`);
+  box(0,0,8.2,6,.3,pal.slab,-.3,-200);
+  box(-4.6,1.5,4.6,3.2,.3,pal.pad,-.3,-199);
+  box(5.6,-2.3,2.7,2.3,.3,pal.pad,-.3,-198);
+  /* room floors */
+  const flo=(x,y,w,d,c)=>poly([P(x,y),P(x+w,y),P(x+w,y+d),P(x,y+d)],c,-150);
+  flo(0,0,3.5,6,pal.fA);flo(3.5,0,4.7,3.2,pal.fB);flo(3.5,3.2,4.7,2.8,pal.fC);
+  let g='';
+  for(let i=0;i<=8;i++){const a=P(i,0),b=P(i,6);g+=`M${a[0]},${a[1]}L${b[0]},${b[1]}`}
+  for(let j=0;j<=6;j++){const a=P(0,j),b=P(8,j);g+=`M${a[0]},${a[1]}L${b[0]},${b[1]}`}
+  add(-149,`<path d="${g}" stroke="#fff" stroke-opacity="${T.grid}" stroke-width="1" fill="none"/>`);
+  /* truck pad stripes */
+  add(-148,`<polygon points="${pts([P(-4.4,1.7),P(-.2,1.7),P(-.2,2.0),P(-4.4,2.0)])}" fill="#ffc83d" opacity=".7"/>`);
+
+  /* walls (1-tile destructible chunks) */
+  const wall=(x,y,len,axis,h,base=pal.wall,t=.2)=>{for(let i=0;i<len-.001;i+=1){const l=Math.min(1,len-i);axis==='x'?box(x+i,y,l,t,h,base):box(x,y+i,t,l,h,base)}};
+  wall(0,0,8.2,'x',H);                       // back (window) wall
+  wall(0,.2,1.8,'y',H);wall(0,4,2,'y',H);     // dock wall w/ gap y 2..4
+  box(0,2,.2,2,.3,pal.wall,H-.3);              // dock lintel
+  wall(0,5.8,8.2,'x',.35,pal.wallLow,.2);      // low cutaway rails
+  wall(8,0,6,'y',.35,pal.wallLow,.2);
+  wall(3.5,.2,2,'y',H);                        // partition up to breach
+  wall(3.5,3.2,2.7,'y',H);                     // partition after breach
+  [[3.55,2.3,.45,.45,.2],[3.6,2.75,.5,.4,.14],[3.5,2.95,.4,.25,.25]].forEach(r=>box(r[0],r[1],r[2],r[3],r[4],pal.rubble)); // breach rubble
+  wall(3.7,3.2,.6,'x',H);wall(5.2,3.2,2.8,'x',H); // B|C wall
+  box(4.3,3.2,.9,.2,H-.15,pal.door);               // locked exec door
+  dot(5.0,3.4,.9,2.2,'#ffc83d',20);               // lock knob
+  /* cracks on wall face being smashed */
+  { const a=P(3.7,4.3,.4),b=P(3.7,4.6,1.0),c=P(3.7,4.9,.6),d=P(3.7,5.1,1.4);
+    add(3.7+4.3+.5,`<path d="M${a[0]},${a[1]}L${b[0]},${b[1]}L${c[0]},${c[1]}L${d[0]},${d[1]}" stroke="${T.line||'#555'}" stroke-width="1.4" fill="none"/>`);}
+  /* window on back wall */
+  faceL(0,0,0,.2,6.3,7.7,.8,1.7,pal.glass,7.1);
+  faceL(0,0,0,.2,6.3,7.7,.8,.9,pal.wall,7.12);
+  /* cubicle partitions */
+  box(1.85,.2,.08,1.3,.75,pal.part);box(1.85,4.5,.08,1.3,.75,pal.part);
+
+  /* items */
+  ITEMS.forEach(([k,x,y])=>{const [w,d,h,c]=KD[k];box(x,y,w,d,h,pal[c]);
+    if(k==='rack'){[.5,.8,1.15].forEach((z,i)=>{dot(x+.18,y+d,z,1.4,i==1?'#ff5a5a':'#5cff8a',x+y+1.2);dot(x+.52,y+d,z,1.4,'#5cff8a',x+y+1.2)})}
+    if(k==='vend'){faceL(x,y,w,d,.12,.48,.25,1.15,'#bfe9ff',x+y+1.2);dot(x+.6,y+d,.8,1.6,'#ffd23f',x+y+1.2)}
+    if(k==='safe'){dot(x+.4,y+d,.55,3,'#ffc83d',x+y+1.2);dot(x+.4,y+d,.55,1.2,'#7a5a00',x+y+1.21)}
+    if(k==='ceo'){faceL(x,y,w,d,.2,1.8,.1,.55,mix(pal.ceo,'#000',.25),x+y+1.6)}});
+  MONS.forEach(([x,y])=>box(x,y,.35,.3,.3,['#7ad7ff','#2b3340','#1d232d'],.5));
+
+  /* truck */
+  box(-4.3,2.15,3.9,1.7,.2,'#2b2f38',.1);
+  box(-2.7,2.1,2.3,1.8,.3,pal.truck,.3);
+  { const a=P(-2.6,3.9,.33),b=P(-.6,3.9,.33);const ang=Math.atan2(b[1]-a[1],b[0]-a[0])*180/Math.PI;
+    add(-.4+3.9+.02,`<text transform="translate(${a[0]+8},${a[1]-4}) rotate(${ang}) skewX(${-ang*0})" font-family="${T.font}" font-weight="900" font-size="11" fill="#2a2a33">IMI  FLATBED</text>`);}
+  box(-2.7,2.1,2.3,.12,.3,pal.truckRail,.6);box(-2.7,3.78,2.3,.12,.3,pal.truckRail,.6);box(-2.7,2.1,.12,1.8,.3,pal.truckRail,.6);
+  box(-4.3,2.2,1.55,1.6,.95,pal.truck,.3);
+  faceL(-4.3,2.2,1.55,1.6,.2,1.1,.75,1.15,pal.glass,-2.75+3.8+.05);
+  [-3.7,-1.9,-.9].forEach(x=>{const p=P(x,3.95,.15);add(x+3.95+.3,`<circle cx="${p[0]}" cy="${p[1]}" r="6.5" fill="#1c1f26"${sw}/><circle cx="${p[0]}" cy="${p[1]}" r="2.4" fill="#9aa0aa"/>`)});
+  box(-2.5,2.3,.45,.5,.85,pal.cab,.6);box(-1.9,2.35,1.1,.6,.5,pal.desk,.6);box(-1.7,2.45,.35,.3,.3,['#7ad7ff','#2b3340','#1d232d'],1.1);
+  box(-2.5,3.0,.8,.8,.8,pal.safe,.6);box(-1.3,3.0,.4,.4,.4,pal.chair,.6);box(-1.7,2.95,.3,.3,.3,pal.mon,.6);
+
+  /* outside net + rope + statue in flight */
+  [[5.9,-2.0],[7.9,-2.0],[7.9,-.6],[5.9,-.6]].forEach(([x,y])=>box(x-.04,y-.04,.08,.08,.9,'#8a6a45',0,x+y));
+  poly([P(5.9,-2.0,.6),P(7.9,-2.0,.6),P(7.9,-.6,.6),P(5.9,-.6,.6)],T.net,5.6,'opacity=".85"');
+  { let n='';for(let i=0;i<=4;i++){const a=P(5.9+i*.5,-2.0,.6),b=P(5.9+i*.5,-.6,.6);n+=`M${a[0]},${a[1]}L${b[0]},${b[1]}`;const c=P(5.9,-2+i*.35,.6),d=P(7.9,-2+i*.35,.6);n+=`M${c[0]},${c[1]}L${d[0]},${d[1]}`}
+    add(5.62,`<path d="${n}" stroke="#fff" stroke-opacity=".7" fill="none"/>`);}
+  { const a=P(7.0,.2,1.7),b=P(7.0,-1.3,.65);add(9,`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${T.accent}" stroke-width="2.2" stroke-dasharray="1 0"/>`);}
+  box(6.85,-.75,.3,.3,.45,pal.statue,.9,9);
+  { const p=P(7.0,-.9,2.0);add(9.1,`<text x="${p[0]}" y="${p[1]}" text-anchor="middle" font-size="9" font-weight="800" fill="${T.label}" font-family="${T.font}">DROP ↓</text>`);}
+
+  /* chain gang + items hopping between hands */
+  const lerp=(a,b,t)=>a+(b-a)*t;
+  const chainPts=[[-.9,2.7,.6],...CHAIN.map(x=>[x,CY,0])];
+  let arcs='';
+  for(let i=0;i<chainPts.length-1;i++){
+    const a=chainPts[i],b=chainPts[i+1];const pa=P(a[0],a[1],a[2]+.75),pb=P(b[0],b[1],b[2]+.75);
+    const mid=[lerp(pa[0],pb[0],.5),lerp(pa[1],pb[1],.5)-14];
+    arcs+=`<path d="M${pa[0]},${pa[1]}Q${mid[0]},${mid[1]} ${pb[0]},${pb[1]}" fill="none" stroke="${T.accent}" stroke-width="1.8" stroke-dasharray="3 3" stroke-linecap="round"/>`;
+    const ip=[lerp(pa[0],pb[0],.5),lerp(pa[1],pb[1],.5)-7];
+    const col=[pal.mon,pal.cab,pal.chair,pal.desk,pal.mon,pal.cab][i%6];
+    arcs+=`<rect x="${ip[0]-4}" y="${ip[1]-4}" width="8" height="8" rx="1.5" fill="${col}"${sw}/>`;
+  }
+  add(30,arcs);
+  /* monkeys */
+  const mon=(x,y,kind,o={})=>{const p=P(x,y,o.z||0);add(x+y+.35,mk(p[0],p[1],kind,o))};
+  function mk(px,py,kind,o={}){
+    const s=o.s||.85,f=o.f||1,fur=T.fur,face=T.face;
+    const col={breacher:'#ff7a1a',hauler:'#3b8cff',rigger:'#25b86a',decoy:'#c8a26a',plain:'#9aa0aa'}[kind];
+    const ln=T.stroke?` stroke="${T.line}" stroke-width="1.4" stroke-linejoin="round"`:'';
+    let g=`<g transform="translate(${px.toFixed(1)},${py.toFixed(1)}) scale(${s*f},${s})"${ln}>`;
+    g+=`<ellipse cx="0" cy="0" rx="7" ry="3" fill="#000" opacity=".18" stroke="none"/>`;
+    g+=`<path d="M3 -5 q10 -1 7 -11" fill="none" stroke="${fur}" stroke-width="2.4" stroke-linecap="round"/>`;
+    if(kind==='decoy'){g+=`<path d="M-6.5 0 L-5 -13 L5 -13 L6.5 0 Z" fill="${col}"/><path d="M-5.5 -6 H5.5" stroke="#8c6d3f" stroke-width="1.4"/><path d="M-2 -13 L0 -8 L2 -13" fill="#e8d3a8" stroke="none"/>`}
+    else g+=`<rect x="-4.6" y="-12" width="9.2" height="11" rx="3.5" fill="${col}"/>`;
+    if(kind==='hauler'||o.up)g+=`<path d="M-4 -9 L-7.5 -17.5 M4 -9 L7.5 -17.5" stroke="${fur}" stroke-width="2.3" stroke-linecap="round" fill="none"/>`;
+    if(kind==='rigger')g+=`<path d="M-4.6 -11 L4.6 -2 M4.6 -11 L-4.6 -2" stroke="#fff" stroke-width="1.6" fill="none"/><circle cx="6.5" cy="-5" r="3" fill="none" stroke="#ff9f1c" stroke-width="1.6"/>`;
+    g+=`<circle cx="-6.6" cy="-18" r="2.8" fill="${fur}"/><circle cx="6.6" cy="-18" r="2.8" fill="${fur}"/>`;
+    g+=`<circle cx="0" cy="-17.5" r="6.6" fill="${fur}"/><ellipse cx="0" cy="-16.2" rx="4.4" ry="3.6" fill="${face}" stroke="none"/>`;
+    if(kind==='decoy')g+=`<circle cx="-2" cy="-17" r="2.4" fill="#fff" stroke="#222" stroke-width="1"/><circle cx="2" cy="-17" r="2.4" fill="#fff" stroke="#222" stroke-width="1"/><path d="M-0.4 -17H0.4" stroke="#222"/><circle cx="-2" cy="-17" r=".9" fill="#222" stroke="none"/><circle cx="2" cy="-17" r=".9" fill="#222" stroke="none"/>`;
+    else g+=`<circle cx="-1.8" cy="-17" r="1" fill="#2b1b12" stroke="none"/><circle cx="1.8" cy="-17" r="1" fill="#2b1b12" stroke="none"/>`;
+    g+=`<ellipse cx="0" cy="-14.5" rx="2" ry="1.2" fill="#e4b98e" stroke="none"/>`;
+    if(kind==='breacher')g+=`<path d="M-7 -20.5 a7 6.2 0 0 1 14 0 z" fill="#ffd23f"/><rect x="-8" y="-21" width="16" height="2.2" rx="1" fill="#ffd23f"/><path d="M7 -8 L12 -19" stroke="#6b4429" stroke-width="2" fill="none" stroke-linecap="round"/><rect x="8.5" y="-25" width="7.5" height="5" rx="1" fill="#808892" transform="rotate(25 12 -22)"/>`;
+    if(kind==='rigger')g+=`<path d="M-6.6 -20.5 a6.6 5 0 0 1 13.2 0 z" fill="#25b86a"/>`;
+    if(kind==='hauler')g+=`<path d="M-6.6 -20.5 a6.6 5 0 0 1 13.2 0 z" fill="#3b8cff"/>`;
+    if(kind==='decoy')g+=`<ellipse cx="0" cy="-22" rx="8.5" ry="2.2" fill="#555a66"/><rect x="-4.5" y="-27.5" width="9" height="6" rx="2" fill="#555a66"/>`;
+    return g+'</g>';
+  }
+  function inspector(x,y){const p=P(x,y);add(x+y+.35,`<g transform="translate(${p[0]},${p[1]}) scale(1.05)"${T.stroke?` stroke="${T.line}" stroke-width="1.4" stroke-linejoin="round"`:''}><ellipse rx="7.5" ry="3" fill="#000" opacity=".18" stroke="none"/><rect x="-5.5" y="-14" width="11" height="13" rx="3" fill="#6b7482"/><path d="M0 -13 L-1.5 -7 L0 -5 L1.5 -7Z" fill="#e5473d" stroke="none"/><circle cy="-19" r="6" fill="#f1cfa5"/><path d="M-6 -22 H6" stroke="#444" stroke-width="2"/><rect x="5" y="-12" width="7" height="9" rx="1" fill="#fff" transform="rotate(12 8 -8)"/><path d="M6.5 -9 h4 M6.5 -7 h4" stroke="#999" stroke-width=".8" fill="none"/><path d="M-2.5 -19.5 l1.6 .8 M2.5 -19.5 l-1.6 .8" stroke="#222" stroke-width="1.1" fill="none"/></g>`)}
+  const bubble=(x,y,z,txt,bg)=>{const p=P(x,y,z);add(40,`<g transform="translate(${p[0]},${p[1]})"><rect x="-9" y="-9" width="18" height="18" rx="9" fill="${bg}"${T.stroke?` stroke="${T.line}" stroke-width="1.6"`:''}/><text y="4.5" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" font-family="${T.font}">${txt}</text></g>`)};
+
+  mon(-.9,2.7,'hauler',{z:.6,f:1});
+  CHAIN.forEach((x,i)=>mon(x,CY,'hauler',{f:1}));
+  mon(1.5,1.9,'plain',{up:1});            // manual-start thrower
+  { const a=P(1.5,1.9,.9),b=P(.6,2.4,.9);add(30.1,`<path d="M${a[0]},${a[1]}Q${(a[0]+b[0])/2},${a[1]-22} ${b[0]},${b[1]}" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.5" stroke-dasharray="2 3"/>`);box(1.2,1.6,.3,.3,.3,pal.chair,1.0,30.2)}
+  mon(3.1,4.6,'breacher',{f:-1});mon(4.75,2.95,'breacher',{f:-1});
+  mon(6.3,1.55,'rigger',{f:1});mon(7.35,1.55,'rigger',{f:-1});
+  inspector(4.9,1.75);mon(5.5,1.9,'decoy',{f:-1,s:1});mon(4.35,1.9,'decoy',{f:1,s:1});
+  bubble(4.9,1.75,1.7,'!','#e5473d');
+  SWARM.forEach(([x,y],i)=>mon(x,y,'hauler',{f:i%2?1:-1,up:1,s:.78}));
+  /* dust */
+  [[3.5,2.6,.4],[3.8,2.4,.7],[3.4,2.9,.9],[4.7,3.1,.5],[5.0,3.0,.9]].forEach(([x,y,z],i)=>{const p=P(x,y,z);add(35,`<circle cx="${p[0]}" cy="${p[1]}" r="${6+i%3*2}" fill="#fff" opacity=".6"/>`)});
+  /* whistle ring */
+  { let d='';for(let i=0;i<=40;i++){const a=i/40*Math.PI*2,p=P(5.6+1.95*Math.cos(a),4.7+1.35*Math.sin(a));d+=(i?'L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1)}
+    add(-120,`<path d="${d}Z" fill="${T.accent}" fill-opacity=".28" stroke="${T.accent}" stroke-width="2" stroke-dasharray="5 4"/>`);
+    const p=P(5.6,4.7,2.2);
+    add(45,`<g transform="translate(${p[0]},${p[1]})"><rect x="-47" y="-11" width="94" height="22" rx="11" fill="${T.accent}"${T.stroke?` stroke="${T.line}" stroke-width="2"`:''}/><text y="4" text-anchor="middle" font-size="11" font-weight="900" fill="#2a2a33" font-family="${T.font}">×13 · HEAVE!</text></g>`);}
+  /* labels */
+  const lab=(x,y,z,t)=>{const p=P(x,y,z);add(44,`<text x="${p[0]}" y="${p[1]}" text-anchor="middle" font-size="8.5" font-weight="800" letter-spacing=".08em" fill="${T.label}" opacity=".8" font-family="${T.font}">${t}</text>`)};
+  lab(1.7,3.4,0,'OPEN PLAN');lab(5.4,2.6,0,'SERVER RM');lab(7.1,5.5,0,'C-SUITE');
+  { const p=P(-2,3,2.1);add(44,`<text x="${p[0]}" y="${p[1]}" text-anchor="middle" font-size="9" font-weight="800" fill="${T.label}" font-family="${T.font}">LOADING DOCK ▸</text>`);}
+
+  L.sort((a,b)=>a.k-b.k);
+  let body=L.map(o=>o.s).join('');
+  return `<svg viewBox="-188 -130 396 450" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">${T.deco||''}${body}</svg>`;
+}
+
+/* ---------- TOP-DOWN blueprint renderer (C) ---------- */
+function topdown(){
+  const u=36,ox=87,oy=146,X=y=>ox+y*u,Y=x=>oy+x*u;
+  const R=(x,y,w,d,a)=>`<rect x="${X(y)}" y="${Y(x)}" width="${d*u}" height="${w*u}" ${a}/>`;
+  const T=(x,y,t,a='')=>`<text x="${X(y)}" y="${Y(x)}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" ${a}>${t}</text>`;
+  let s=`<defs><pattern id="g" width="18" height="18" patternUnits="userSpaceOnUse"><path d="M18 0H0V18" fill="none" stroke="#5ec8ff" stroke-opacity=".12"/></pattern></defs><rect width="390" height="470" fill="url(#g)"/>`;
+  const wall='fill="#dff3ff" stroke="#5ec8ff" stroke-width="1"';
+  // rooms
+  s+=R(0,0,3.5,6,'fill="#12365f" stroke="#5ec8ff" stroke-opacity=".5"')+R(3.5,0,4.5,3.2,'fill="#0f3a52" stroke="#5ec8ff" stroke-opacity=".5"')+R(3.5,3.2,4.5,2.8,'fill="#3a2a4d" stroke="#5ec8ff" stroke-opacity=".5"');
+  // truck
+  s+=R(-3.4,2.1,3.0,1.8,'fill="#ffc83d" stroke="#fff" stroke-width="1.5" rx="3"')+R(-3.4,2.1,1.1,1.8,'fill="#e0a920" rx="3" stroke="#fff"');
+  s+=R(-2.0,2.2,1.5,1.6,'fill="#c58f12" opacity=".5"')+[[.5,-1.8],[.4,-1.1]].map(([a,b],i)=>R(b,2.3+a*1.1,.45,.45,`fill="${['#6b7280','#b07a3c','#7ad7ff'][i]}" stroke="#fff" stroke-width="1"`)).join('');
+  s+=T(-1.8,3.0,'IMI',`font-size="13" font-weight="900" fill="#0d2745"`);
+  // walls
+  const W=(x,y,w,d)=>R(x,y,w,d,wall);
+  s+=W(-.2,0,.2,2.0)+W(-.2,4,.2,2.0);                         // dock wall (top edge) with gap y 2..4
+  s+=W(0,-.2,8.2,.2)+W(0,6,8.2,.2)+W(8,0,.2,6);              // left(window), right, bottom
+  s+=W(3.5,0,.2,2.2)+W(3.5,3.2,.2,2.8);                      // x=3.5 partition with breach gap y 2.2..3.2
+  // B|C wall at y=3.2 (vertical on screen)
+  s+=R(3.7,3.2,.6,.2,wall)+R(5.2,3.2,2.8,.2,wall);
+  s+=R(4.3,3.2,.9,.2,'fill="#ff5a5a" stroke="#fff"')+T(4.78,3.3,'🔒','font-size="9"');
+  // breach (rubble dashed)
+  s+=R(3.5,2.2,.2,1.0,'fill="none" stroke="#ffc83d" stroke-width="1.5" stroke-dasharray="3 3"');
+  // window on y=0 wall
+  s+=R(6.3,-.2,1.4,.2,'fill="#7ad7ff" stroke="#fff"');
+  // net outside
+  s+=R(5.9,-1.6,1.4,.9,'fill="#25b86a" fill-opacity=".25" stroke="#25b86a" stroke-dasharray="3 2"');
+  s+=T(6.6,-1.15,'NET','font-size="8" fill="#7dffb0" text-anchor="middle"');
+  // items
+  const IT={desk:'#ffc83d',cab:'#ffc83d',chair:'#ffc83d',rack:'#7ad7ff',vend:'#ff7a6b',safe:'#ffffff',statue:'#e0a45a',ceo:'#ff9bd0'};
+  const LB={desk:'',cab:'',chair:'',rack:'SRV',vend:'VND',safe:'SAFE',statue:'BRZ',ceo:'CEO DESK'};
+  ITEMS.forEach(([k,x,y])=>{const [w,d]=KD[k];s+=R(x,y,w,d,`fill="${IT[k]}" fill-opacity=".85" stroke="#0d2745" stroke-width="1" rx="2"`);if(LB[k])s+=T(x+w/2+.08,y+d/2,LB[k],'font-size="6.5" font-weight="800" fill="#0d2745" dominant-baseline="middle"')});
+  // chain path
+  const cp=[...CHAIN].reverse();
+  s+=`<path d="M${X(CY)},${Y(5.8)}L${X(CY)},${Y(-1.5)}" stroke="#5ec8ff" stroke-width="3" stroke-dasharray="2 6" stroke-linecap="round" fill="none"/>`;
+  s+=T(5.0,CY+.55,'CHAIN-GANG ROUTE','font-size="7" fill="#5ec8ff" letter-spacing=".1em"');
+  // whistle ring
+  s+=`<ellipse cx="${X(4.7)}" cy="${Y(5.6)}" rx="${1.35*u}" ry="${1.95*u}" fill="#ffc83d" fill-opacity=".14" stroke="#ffc83d" stroke-dasharray="5 4" stroke-width="1.5"/>`;
+  // monkeys
+  const rc={breacher:'#ff7a1a',hauler:'#3b8cff',rigger:'#25b86a',decoy:'#c8a26a',plain:'#9aa0aa'};
+  const mm=(x,y,k,r=6)=>`<g transform="translate(${X(y)},${Y(x)})"><circle cx="-${r}" r="2.4" fill="#8a5a3c"/><circle cx="${r}" r="2.4" fill="#8a5a3c"/><circle r="${r}" fill="#8a5a3c" stroke="#fff" stroke-width="1.2"/><circle r="${r*.58}" cy="1" fill="#f1cfa5"/><circle cy="-${r*.55}" r="${r*.7}" fill="${rc[k]}" stroke="#0d2745" stroke-width=".8"/></g>`;
+  s+=[-.9].map(x=>mm(x,2.7,'hauler')).join('')+CHAIN.map(x=>mm(x,CY,'hauler')).join('');
+  s+=mm(1.5,1.9,'plain')+mm(3.1,4.6,'breacher')+mm(4.75,2.95,'breacher')+mm(6.3,1.55,'rigger')+mm(7.35,1.55,'rigger')+SWARM.map(([x,y])=>mm(x,y,'hauler',5)).join('');
+  // inspector + vision cone
+  const ix=X(1.75),iy=Y(4.9),R2=70,a=-8*Math.PI/180,wd=34*Math.PI/180;
+  s+=`<path d="M${ix},${iy}L${ix+R2*Math.cos(a-wd)},${iy+R2*Math.sin(a-wd)}A${R2} ${R2} 0 0 1 ${ix+R2*Math.cos(a+wd)},${iy+R2*Math.sin(a+wd)}Z" fill="#ff4d4d" fill-opacity=".22" stroke="#ff4d4d" stroke-dasharray="4 3"/>`;
+  s+=`<g transform="translate(${ix},${iy})"><circle r="8" fill="#6b7482" stroke="#fff" stroke-width="1.3"/><circle r="4.5" fill="#f1cfa5"/><path d="M5 -2 l9 2 l-9 3Z" fill="#e5473d"/></g>`;
+  s+=mm(5.35,1.4,'decoy',6.5)+mm(4.4,1.9,'decoy',6.5);
+  s+=`<g transform="translate(${ix-4},${iy-22})"><rect x="-30" y="-8" width="60" height="14" fill="#ff4d4d33" stroke="#ff4d4d"/><text y="3" text-anchor="middle" font-size="8" font-weight="800" fill="#ff9a9a" font-family="ui-monospace,Menlo,monospace">INSPECTOR</text></g>`;
+  // labels
+  s+=T(.35,1.9,'OPEN PLAN','font-size="8" fill="#5ec8ff" letter-spacing=".12em" opacity=".8"')+T(7.7,1.5,'SERVER RM','font-size="8" fill="#5ec8ff" opacity=".8" letter-spacing=".12em"')+T(7.7,4.6,'C-SUITE','font-size="8" fill="#ff9bd0" opacity=".8" letter-spacing=".12em"');
+  s+=T(-3.7,3.0,'LOADING DOCK ▾','font-size="8" fill="#5ec8ff"');
+  s+=T(4.7,4.6,'×13 HEAVE!','font-size="9" font-weight="900" fill="#ffc83d"').replace('dominant','dominant');
+  return `<svg viewBox="0 0 390 470" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">${s}</svg>`;
+}
+
+/* ---------- themes ---------- */
+const TA={font:'system-ui,-apple-system,sans-serif',stroke:0,line:'',lt:.14,dk:.13,grid:.35,fur:'#8a5a3c',face:'#f1cfa5',accent:'#ffb52e',label:'#4a4a55',net:'#7fd0b0',
+ pal:{slab:'#ece2d3',pad:'#e3d6c2',fA:'#d3dbe6',fB:'#b3c0d0',fC:'#dfbfb6',wall:'#fbfaf7',wallLow:'#efe9dc',rubble:'#cfc6b6',door:'#b5523f',part:'#a9b8c9',
+  desk:'#e0b184',cab:'#b7c1cc',chair:'#5c6b80',rack:'#55627a',vend:'#ef6a5b',safe:'#8b95a3',statue:'#c98b4a',ceo:'#8c3b2e',mon:'#3b4558',truck:'#ffc83d',truckRail:'#e6ae22',glass:'#bfe3f2'},
+ deco:(()=>{let r='';[[-183,50,40],[-140,80,34],[-100,40,48],[-40,95,30],[130,60,44],[165,35,50],[85,90,30]].forEach(([x,y,w],i)=>{r+=`<rect x="${x}" y="${-170+y*0}" width="${w}" height="${y+60}" fill="#e9c9a6" opacity=".55"/>`});return r})()};
+const TB={font:'ui-rounded,"SF Pro Rounded","Arial Rounded MT Bold",system-ui,sans-serif',stroke:2.2,line:'#3a2216',lt:.24,dk:.22,grid:.3,fur:'#9a5b33',face:'#ffdcae',accent:'#ffd23f',label:'#3a2216',net:'#6fe3a5',
+ pal:{slab:'#8f5a3a',pad:'#b8845a',fA:'#8fd0ff',fB:'#9aa8e8',fC:'#ff9aa8',wall:'#fff1d6',wallLow:'#ffe3a8',rubble:'#e8d2a8',door:'#d9483b',part:'#ffd0e8',
+  desk:'#ffb347',cab:'#9ec5e8',chair:'#7a5cff',rack:'#3a4a8f',vend:'#ff4d6d',safe:'#6c7a89',statue:'#d98c3a',ceo:'#a8321f',mon:'#3b4558',truck:'#ffd23f',truckRail:'#ffb100',glass:'#c6f2ff'},
+ deco:`<ellipse cx="-120" cy="-110" rx="46" ry="16" fill="#fff" opacity=".85"/><ellipse cx="-92" cy="-120" rx="30" ry="16" fill="#fff" opacity=".85"/><ellipse cx="140" cy="-95" rx="50" ry="16" fill="#fff" opacity=".85"/><ellipse cx="170" cy="-106" rx="26" ry="14" fill="#fff" opacity=".85"/><ellipse cx="-150" cy="230" rx="50" ry="14" fill="#fff" opacity=".6"/>`};
+
+/* ---------- HUD + page assembly ---------- */
+const hud=(cls,stampHTML='')=>`
+<div class="hud top"><div class="job"><small>JOB 04 · HOSTILE TAKEOVER</small><b>Dunmore &amp; Pike Tax Services</b></div><div class="timer">11:42<small>LEFT</small></div></div>
+<div class="quota"><div class="bar"><i style="width:63%"></i></div><div class="qrow"><span>Salvage 63%</span><span>$48,200 / $76,500</span></div></div>`;
+const bottom=`<div class="hud bot"><div class="crew">
+<div class="chip"><em>🔨</em><div>Breachers<span>2 smashing</span></div><b>4</b></div>
+<div class="chip"><em>📦</em><div>Haulers<span>chain ×1</span></div><b>21</b></div>
+<div class="chip"><em>🧗</em><div>Riggers<span>1 window</span></div><b>2</b></div>
+<div class="chip"><em>🕶️</em><div>Decoys<span>stalling</span></div><b>2</b></div></div>
+<button class="whistle"><em>📣</em>WHISTLE</button></div>`;
+const cols=a=>`<div class="sw">${a.map(c=>`<i style="background:${c}"></i>`).join('')}</div>`;
+const cards=[
+ {cls:'A',name:'A · Flat Corporate',tag:'Isometric · calm, clean, readable',svg:iso(TA),
+  sw:['#fdf1de','#ffc83d','#3b8cff','#ef6a5b','#2a2a33'],
+  ul:['Reads like Monument Valley meets a stock-photo office; the satire comes from the contrast.','Cheapest to build: flat fills and shaded boxes, so assets can be procedurally tinted.','Soft tones keep dense swarms legible; role colours do all the signalling.','Risk: least personality, relies on animation and sound for charm.']},
+ {cls:'B',name:'B · Toy Diorama',tag:'Isometric · chunky, outlined, Pikmin-adjacent',svg:iso(TB),
+  sw:['#6fd3e0','#ffd23f','#ff5d4d','#7a5cff','#3a2216'],
+  ul:['Thick outlines and saturated colour keep tiny monkeys readable on a phone.','Modular wall chunks look like destructible blocks, so breaching communicates itself.','Highest charm and best for marketing and store screenshots.','Risk: outlines cost a little more draw work and can get noisy at 40+ monkeys.']},
+ {cls:'C',name:'C · Blueprint Ledger',tag:'Top-down · schematic, spreadsheet satire',svg:topdown(),
+  sw:['#0d2745','#5ec8ff','#ffc83d','#ff4d4d','#ff9bd0'],
+  ul:['Top-down fits portrait phones best: the whole floor fits with no camera work.','Vision cones, chain routes and the whistle radius read at a glance, like a tactics board.','Easy for one dev to produce, and the corporate-audit look suits IMI.','Risk: monkeys are small icons, so there’s less physical comedy than A or B.']}
+];
+document.getElementById('row').innerHTML=cards.map(c=>`
+<section class="dir"><h2>${c.name}</h2><div class="tag">${c.tag}</div>
+<div class="phone ${c.cls}">${hud()}<div class="stage"><div class="toast">⚠ Inspector entering Server Room</div>${c.svg}<div class="manifest"><div class="mf"><b>Server racks ×3</b><u>$9,000 · 2 hauls</u></div><div class="mf"><b>Vault safe</b><u>$12,000 · whistle</u></div><div class="mf"><b>CEO desk</b><u>$6,400 · whistle ×13</u></div></div></div>${bottom}${c.cls==='C'?'<div class="stamp">LIQUIDATION NOTICE</div>':''}</div>
+${cols(c.sw)}<ul>${c.ul.map(x=>`<li>${x}</li>`).join('')}</ul></section>`).join('');
+</script></body></html>

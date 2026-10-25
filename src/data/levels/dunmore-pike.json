@@ -1,0 +1,123 @@
+{
+  "id": "dunmore-pike", "par": 600,
+  "name": "Dunmore & Pike Tax Services",
+  "briefing": {
+    "blurb": "Dunmore & Pike went bust and IMI bought the building. Strip it before the bank takes it back.",
+    "hazards": [
+      "An inspector patrols the floor and fines visible looting",
+      "The CEO suite door is locked",
+      "The server room is sealed behind drywall"
+    ]
+  },
+  "notes": "Bankrupt strip-mall tax office. Dock: 2-tile opening in the west wall of reception (4,8)-(4,9) onto the asphalt yard. Gated areas: CEO suite (locked steel door W of (12,5), hp 120); server room (sealed; breach the drywall partition W of (7,2)-(7,5) from the cubicles, or the reception wall, or the north windows from the grass strip). Grass strip (4..6,0..1) is reserved for the catch-net.",
+  "width": 16,
+  "height": 12,
+  "floors": 1,
+  "legend": {
+    "floor": { ".": "void", "a": "asphalt", "g": "grass", "t": "tile", "1": "carpetA", "2": "carpetB", "3": "carpetC" },
+    "room": { ".": null, "R": "reception", "C": "cubicles", "S": "server", "M": "manager", "E": "ceo", "B": "break" }
+  },
+  "floor": [
+    "aaaaggg.........",
+    "aaaaggg.........",
+    "aaaattt11111333.",
+    "aaaattt11111333.",
+    "aaaattt11111222.",
+    "aaaattt11111222.",
+    "aaaa33311111222.",
+    "aaaa33311111222.",
+    "aaaa333tttttttt.",
+    "aaaa333tttttttt.",
+    "aaaa............",
+    "aaaa............"
+  ],
+  "room": [
+    "................",
+    "................",
+    "....SSSCCCCCMMM.",
+    "....SSSCCCCCMMM.",
+    "....SSSCCCCCEEE.",
+    "....SSSCCCCCEEE.",
+    "....RRRCCCCCEEE.",
+    "....RRRCCCCCEEE.",
+    "....RRRBBBBBBBB.",
+    "....RRRBBBBBBBB.",
+    "................",
+    "................"
+  ],
+  "walls": [
+    { "x": 4, "y": 2, "side": "N", "type": "wall", "material": "brick", "hp": 400 },
+    { "x": 5, "y": 2, "side": "N", "len": 2, "type": "window", "material": "glass", "hp": 20 },
+    { "x": 7, "y": 2, "side": "N", "len": 8, "type": "wall", "material": "brick", "hp": 400 },
+    { "x": 4, "y": 10, "side": "N", "len": 11, "type": "wall", "material": "brick", "hp": 400 },
+    { "x": 4, "y": 2, "side": "W", "len": 6, "type": "wall", "material": "brick", "hp": 400 },
+    { "x": 15, "y": 2, "side": "W", "len": 8, "type": "wall", "material": "brick", "hp": 400 },
+
+    { "x": 7, "y": 2, "side": "W", "len": 4, "type": "wall", "material": "drywall", "hp": 40 },
+    { "x": 4, "y": 6, "side": "N", "len": 3, "type": "wall", "material": "drywall", "hp": 40 },
+    { "x": 7, "y": 6, "side": "W", "type": "wall", "material": "drywall", "hp": 40 },
+    { "x": 7, "y": 7, "side": "W", "type": "door", "material": "drywall", "hp": 40, "locked": false },
+    { "x": 7, "y": 8, "side": "W", "len": 2, "type": "wall", "material": "drywall", "hp": 40 },
+    { "x": 7, "y": 8, "side": "N", "len": 2, "type": "wall", "material": "drywall", "hp": 40 },
+    { "x": 9, "y": 8, "side": "N", "type": "door", "material": "drywall", "hp": 40, "locked": false },
+    { "x": 10, "y": 8, "side": "N", "len": 5, "type": "wall", "material": "drywall", "hp": 40 },
+    { "x": 12, "y": 2, "side": "W", "type": "wall", "material": "drywall", "hp": 40 },
+    { "x": 12, "y": 3, "side": "W", "type": "door", "material": "drywall", "hp": 40, "locked": false },
+    { "x": 12, "y": 4, "side": "W", "type": "wall", "material": "drywall", "hp": 40 },
+    { "x": 12, "y": 5, "side": "W", "type": "door", "material": "steel", "hp": 120, "locked": true },
+    { "x": 12, "y": 6, "side": "W", "len": 2, "type": "wall", "material": "drywall", "hp": 40 },
+    { "x": 12, "y": 4, "side": "N", "len": 3, "type": "wall", "material": "drywall", "hp": 40 }
+  ],
+  "props": [
+    { "id": "rack1", "kind": "rack", "x": 4, "y": 2 },
+    { "id": "rack2", "kind": "rack", "x": 4, "y": 3 },
+    { "id": "rack3", "kind": "rack", "x": 4, "y": 4 },
+    { "id": "vend1", "kind": "vend", "x": 6, "y": 5 },
+    { "id": "desk1", "kind": "desk", "x": 7, "y": 2 },
+    { "id": "desk2", "kind": "desk", "x": 9, "y": 2 },
+    { "id": "desk3", "kind": "desk", "x": 7, "y": 4 },
+    { "id": "desk4", "kind": "desk", "x": 9, "y": 4 },
+    { "id": "desk5", "kind": "desk", "x": 7, "y": 6 },
+    { "id": "desk6", "kind": "desk", "x": 9, "y": 6 },
+    { "id": "mon1", "kind": "monitor", "x": 7, "y": 2 },
+    { "id": "mon2", "kind": "monitor", "x": 9, "y": 2 },
+    { "id": "mon3", "kind": "monitor", "x": 7, "y": 4 },
+    { "id": "mon4", "kind": "monitor", "x": 9, "y": 4 },
+    { "id": "mon5", "kind": "monitor", "x": 7, "y": 6 },
+    { "id": "mon6", "kind": "monitor", "x": 9, "y": 6 },
+    { "id": "cab1", "kind": "cab", "x": 11, "y": 2 },
+    { "id": "cab2", "kind": "cab", "x": 7, "y": 9 },
+    { "id": "copier1", "kind": "copier", "x": 8, "y": 9 },
+    { "id": "mgrdesk", "kind": "desk", "x": 13, "y": 2 },
+    { "id": "mgrmon", "kind": "monitor", "x": 13, "y": 2 },
+    { "id": "mgrchair", "kind": "chair", "x": 14, "y": 3 },
+    { "id": "cab3", "kind": "cab", "x": 12, "y": 2 },
+    { "id": "ceodesk", "kind": "ceo", "x": 12, "y": 6 },
+    { "id": "safe1", "kind": "safe", "x": 14, "y": 4 },
+    { "id": "statue1", "kind": "statue", "x": 12, "y": 4 },
+    { "id": "frontdesk", "kind": "desk", "x": 5, "y": 6 },
+    { "id": "frontmon", "kind": "monitor", "x": 5, "y": 6 },
+    { "id": "frontchair", "kind": "chair", "x": 5, "y": 7 },
+    { "id": "plant1", "kind": "plant", "x": 4, "y": 6 },
+    { "id": "plant2", "kind": "plant", "x": 6, "y": 9 },
+    { "id": "vend2", "kind": "vend", "x": 14, "y": 8 },
+    { "id": "breaktable", "kind": "desk", "x": 12, "y": 8 },
+    { "id": "breakchair", "kind": "chair", "x": 10, "y": 9 },
+    { "id": "plant3", "kind": "plant", "x": 9, "y": 9 }
+  ],
+  "truck": { "x": 0, "y": 10, "w": 4, "d": 2, "dropX": 3, "dropY": 9 },
+  "spawns": [
+    { "x": 0, "y": 8 }, { "x": 1, "y": 8 }, { "x": 2, "y": 8 },
+    { "x": 0, "y": 9 }, { "x": 1, "y": 9 }, { "x": 2, "y": 9 },
+    { "x": 0, "y": 7 }, { "x": 1, "y": 7 }, { "x": 2, "y": 7 },
+    { "x": 0, "y": 6 }, { "x": 1, "y": 6 }, { "x": 2, "y": 6 }
+  ],
+  "inspectors": [
+    { "id": "insp1", "path": [{ "x": 5, "y": 8 }, { "x": 9, "y": 5 }, { "x": 13, "y": 3 }], "speed": 1.6 }
+  ],
+  "tutorial": {
+    "breach": { "x": 7, "y": 3, "side": "W" },
+    "chainStart": { "x": 10, "y": 5 },
+    "heavy": "vend2"
+  }
+}

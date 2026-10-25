@@ -1,0 +1,780 @@
+{
+  "id": "fairfax-credit-union", "par": 840,
+  "name": "Fairfax Regional Credit Union",
+  "briefing": {
+    "blurb": "Fairfax Regional folded overnight and IMI holds the paper. Empty the branch, vault included, before the regulators arrive.",
+    "hazards": [
+      "Two inspectors patrol the lobby, teller line and back corridor",
+      "The vault door is locked steel",
+      "The server and safe-deposit rooms are sealed behind drywall"
+    ]
+  },
+  "notes": "Credit union branch. Dock: 2-tile gap in the west lobby wall W of (4,8)-(4,9) onto the asphalt yard. Gated: VAULT (16..19,2..4) behind a locked steel door W of (16,4) (hp 300) off the manager office, other vault walls steel; SERVER room (4..5,2..4) sealed, breach drywall W of (6,3) from the back office or N of (4,5)/(5,5) from the lobby; SAFE-DEPOSIT room (16..19,5..7) sealed, breach drywall W of (16,6) from the back corridor or N of (17..19,8) from the break room. Grass ledge (4..11,0..1) under the 4 north back-office windows N of (6..9,2) is the catch-net zone.",
+  "width": 22,
+  "height": 15,
+  "floors": 1,
+  "legend": {
+    "floor": {
+      "1": "carpetA",
+      "2": "carpetB",
+      "3": "carpetC",
+      ".": "void",
+      "a": "asphalt",
+      "g": "grass",
+      "t": "tile"
+    },
+    "room": {
+      ".": null,
+      "L": "lobby",
+      "O": "office",
+      "S": "server",
+      "M": "manager",
+      "V": "vault",
+      "D": "deposit",
+      "C": "corridor",
+      "B": "break"
+    }
+  },
+  "floor": [
+    "aaaagggggggg..........",
+    "aaaagggggggg..........",
+    "aaaatt1111113333tttt..",
+    "aaaatt1111113333tttt..",
+    "aaaatt1111113333tttt..",
+    "aaaatttttttt33332222..",
+    "aaaatttttttt22222222..",
+    "aaaatttttttt22222222..",
+    "aaaatttttttttttttttt..",
+    "aaaatttttttttttttttt..",
+    "aaaatttttttttttttttt..",
+    "aaaaaaaa..............",
+    "aaaaaaaa..............",
+    "aaaaaaaa..............",
+    "aaaaaaaa.............."
+  ],
+  "room": [
+    "......................",
+    "......................",
+    "....SSOOOOOOMMMMVVVV..",
+    "....SSOOOOOOMMMMVVVV..",
+    "....SSOOOOOOMMMMVVVV..",
+    "....LLLLLLLLMMMMDDDD..",
+    "....LLLLLLLLCCCCDDDD..",
+    "....LLLLLLLLCCCCDDDD..",
+    "....LLLLLLLLBBBBBBBB..",
+    "....LLLLLLLLBBBBBBBB..",
+    "....LLLLLLLLBBBBBBBB..",
+    "......................",
+    "......................",
+    "......................",
+    "......................"
+  ],
+  "walls": [
+    {
+      "x": 4,
+      "y": 2,
+      "side": "N",
+      "len": 2,
+      "type": "wall",
+      "material": "brick",
+      "hp": 400
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "side": "N",
+      "len": 4,
+      "type": "window",
+      "material": "glass",
+      "hp": 20
+    },
+    {
+      "x": 10,
+      "y": 2,
+      "side": "N",
+      "len": 10,
+      "type": "wall",
+      "material": "brick",
+      "hp": 400
+    },
+    {
+      "x": 4,
+      "y": 11,
+      "side": "N",
+      "len": 16,
+      "type": "wall",
+      "material": "brick",
+      "hp": 400
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "side": "W",
+      "len": 6,
+      "type": "wall",
+      "material": "brick",
+      "hp": 400
+    },
+    {
+      "x": 4,
+      "y": 10,
+      "side": "W",
+      "type": "wall",
+      "material": "brick",
+      "hp": 400
+    },
+    {
+      "x": 20,
+      "y": 2,
+      "side": "W",
+      "len": 9,
+      "type": "wall",
+      "material": "brick",
+      "hp": 400
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "side": "W",
+      "len": 3,
+      "type": "wall",
+      "material": "drywall",
+      "hp": 40
+    },
+    {
+      "x": 4,
+      "y": 5,
+      "side": "N",
+      "len": 3,
+      "type": "wall",
+      "material": "drywall",
+      "hp": 40
+    },
+    {
+      "x": 7,
+      "y": 5,
+      "side": "N",
+      "type": "door",
+      "material": "drywall",
+      "hp": 40,
+      "locked": false
+    },
+    {
+      "x": 8,
+      "y": 5,
+      "side": "N",
+      "len": 4,
+      "type": "wall",
+      "material": "drywall",
+      "hp": 40
+    },
+    {
+      "x": 12,
+      "y": 2,
+      "side": "W",
+      "len": 4,
+      "type": "wall",
+      "material": "drywall",
+      "hp": 40
+    },
+    {
+      "x": 12,
+      "y": 6,
+      "side": "W",
+      "type": "door",
+      "material": "drywall",
+      "hp": 40,
+      "locked": false
+    },
+    {
+      "x": 12,
+      "y": 7,
+      "side": "W",
+      "len": 4,
+      "type": "wall",
+      "material": "drywall",
+      "hp": 40
+    },
+    {
+      "x": 12,
+      "y": 6,
+      "side": "N",
+      "type": "wall",
+      "material": "drywall",
+      "hp": 40
+    },
+    {
+      "x": 13,
+      "y": 6,
+      "side": "N",
+      "type": "door",
+      "material": "drywall",
+      "hp": 40,
+      "locked": false
+    },
+    {
+      "x": 14,
+      "y": 6,
+      "side": "N",
+      "len": 2,
+      "type": "wall",
+      "material": "drywall",
+      "hp": 40
+    },
+    {
+      "x": 12,
+      "y": 8,
+      "side": "N",
+      "len": 2,
+      "type": "wall",
+      "material": "drywall",
+      "hp": 40
+    },
+    {
+      "x": 14,
+      "y": 8,
+      "side": "N",
+      "type": "door",
+      "material": "drywall",
+      "hp": 40,
+      "locked": false
+    },
+    {
+      "x": 15,
+      "y": 8,
+      "side": "N",
+      "type": "wall",
+      "material": "drywall",
+      "hp": 40
+    },
+    {
+      "x": 16,
+      "y": 8,
+      "side": "N",
+      "len": 4,
+      "type": "wall",
+      "material": "drywall",
+      "hp": 40
+    },
+    {
+      "x": 16,
+      "y": 2,
+      "side": "W",
+      "len": 2,
+      "type": "wall",
+      "material": "steel",
+      "hp": 300
+    },
+    {
+      "x": 16,
+      "y": 4,
+      "side": "W",
+      "type": "door",
+      "material": "steel",
+      "hp": 300,
+      "locked": true
+    },
+    {
+      "x": 16,
+      "y": 5,
+      "side": "N",
+      "len": 4,
+      "type": "wall",
+      "material": "steel",
+      "hp": 300
+    },
+    {
+      "x": 16,
+      "y": 5,
+      "side": "W",
+      "len": 3,
+      "type": "wall",
+      "material": "drywall",
+      "hp": 40
+    }
+  ],
+  "props": [
+    {
+      "id": "rack1",
+      "kind": "rack",
+      "x": 4,
+      "y": 2
+    },
+    {
+      "id": "rack2",
+      "kind": "rack",
+      "x": 4,
+      "y": 3
+    },
+    {
+      "id": "rack3",
+      "kind": "rack",
+      "x": 4,
+      "y": 4
+    },
+    {
+      "id": "desk1",
+      "kind": "desk",
+      "x": 8,
+      "y": 3
+    },
+    {
+      "id": "monitor1",
+      "kind": "monitor",
+      "x": 8,
+      "y": 3
+    },
+    {
+      "id": "monitor2",
+      "kind": "monitor",
+      "x": 9,
+      "y": 3
+    },
+    {
+      "id": "desk2",
+      "kind": "desk",
+      "x": 10,
+      "y": 3
+    },
+    {
+      "id": "monitor3",
+      "kind": "monitor",
+      "x": 10,
+      "y": 3
+    },
+    {
+      "id": "monitor4",
+      "kind": "monitor",
+      "x": 11,
+      "y": 3
+    },
+    {
+      "id": "chair1",
+      "kind": "chair",
+      "x": 9,
+      "y": 4
+    },
+    {
+      "id": "chair2",
+      "kind": "chair",
+      "x": 8,
+      "y": 4
+    },
+    {
+      "id": "cab1",
+      "kind": "cab",
+      "x": 10,
+      "y": 2
+    },
+    {
+      "id": "cab2",
+      "kind": "cab",
+      "x": 6,
+      "y": 4
+    },
+    {
+      "id": "copier1",
+      "kind": "copier",
+      "x": 11,
+      "y": 2
+    },
+    {
+      "id": "plant1",
+      "kind": "plant",
+      "x": 6,
+      "y": 3
+    },
+    {
+      "id": "desk3",
+      "kind": "desk",
+      "x": 6,
+      "y": 7
+    },
+    {
+      "id": "monitor5",
+      "kind": "monitor",
+      "x": 6,
+      "y": 7
+    },
+    {
+      "id": "chair3",
+      "kind": "chair",
+      "x": 6,
+      "y": 6
+    },
+    {
+      "id": "desk4",
+      "kind": "desk",
+      "x": 8,
+      "y": 7
+    },
+    {
+      "id": "monitor6",
+      "kind": "monitor",
+      "x": 8,
+      "y": 7
+    },
+    {
+      "id": "chair4",
+      "kind": "chair",
+      "x": 8,
+      "y": 6
+    },
+    {
+      "id": "desk5",
+      "kind": "desk",
+      "x": 10,
+      "y": 7
+    },
+    {
+      "id": "monitor7",
+      "kind": "monitor",
+      "x": 10,
+      "y": 7
+    },
+    {
+      "id": "chair5",
+      "kind": "chair",
+      "x": 10,
+      "y": 6
+    },
+    {
+      "id": "plant2",
+      "kind": "plant",
+      "x": 4,
+      "y": 5
+    },
+    {
+      "id": "vend1",
+      "kind": "vend",
+      "x": 11,
+      "y": 8
+    },
+    {
+      "id": "vend2",
+      "kind": "vend",
+      "x": 11,
+      "y": 9
+    },
+    {
+      "id": "copier2",
+      "kind": "copier",
+      "x": 11,
+      "y": 10
+    },
+    {
+      "id": "statue1",
+      "kind": "statue",
+      "x": 6,
+      "y": 10
+    },
+    {
+      "id": "statue2",
+      "kind": "statue",
+      "x": 9,
+      "y": 10
+    },
+    {
+      "id": "vend3",
+      "kind": "vend",
+      "x": 4,
+      "y": 10
+    },
+    {
+      "id": "copier3",
+      "kind": "copier",
+      "x": 5,
+      "y": 5
+    },
+    {
+      "id": "ceo1",
+      "kind": "ceo",
+      "x": 13,
+      "y": 2
+    },
+    {
+      "id": "desk6",
+      "kind": "desk",
+      "x": 12,
+      "y": 4
+    },
+    {
+      "id": "monitor8",
+      "kind": "monitor",
+      "x": 12,
+      "y": 4
+    },
+    {
+      "id": "chair6",
+      "kind": "chair",
+      "x": 14,
+      "y": 4
+    },
+    {
+      "id": "plant3",
+      "kind": "plant",
+      "x": 13,
+      "y": 5
+    },
+    {
+      "id": "statue3",
+      "kind": "statue",
+      "x": 12,
+      "y": 5
+    },
+    {
+      "id": "safe1",
+      "kind": "safe",
+      "x": 18,
+      "y": 2
+    },
+    {
+      "id": "safe2",
+      "kind": "safe",
+      "x": 19,
+      "y": 2
+    },
+    {
+      "id": "statue4",
+      "kind": "statue",
+      "x": 18,
+      "y": 4
+    },
+    {
+      "id": "cab3",
+      "kind": "cab",
+      "x": 16,
+      "y": 5
+    },
+    {
+      "id": "cab4",
+      "kind": "cab",
+      "x": 17,
+      "y": 5
+    },
+    {
+      "id": "cab5",
+      "kind": "cab",
+      "x": 18,
+      "y": 5
+    },
+    {
+      "id": "cab6",
+      "kind": "cab",
+      "x": 19,
+      "y": 5
+    },
+    {
+      "id": "cab7",
+      "kind": "cab",
+      "x": 16,
+      "y": 7
+    },
+    {
+      "id": "cab8",
+      "kind": "cab",
+      "x": 17,
+      "y": 7
+    },
+    {
+      "id": "cab9",
+      "kind": "cab",
+      "x": 18,
+      "y": 7
+    },
+    {
+      "id": "cab10",
+      "kind": "cab",
+      "x": 19,
+      "y": 7
+    },
+    {
+      "id": "plant4",
+      "kind": "plant",
+      "x": 12,
+      "y": 7
+    },
+    {
+      "id": "vend4",
+      "kind": "vend",
+      "x": 19,
+      "y": 8
+    },
+    {
+      "id": "vend5",
+      "kind": "vend",
+      "x": 19,
+      "y": 9
+    },
+    {
+      "id": "vend6",
+      "kind": "vend",
+      "x": 19,
+      "y": 10
+    },
+    {
+      "id": "desk7",
+      "kind": "desk",
+      "x": 16,
+      "y": 9
+    },
+    {
+      "id": "monitor9",
+      "kind": "monitor",
+      "x": 16,
+      "y": 9
+    },
+    {
+      "id": "chair7",
+      "kind": "chair",
+      "x": 15,
+      "y": 9
+    },
+    {
+      "id": "chair8",
+      "kind": "chair",
+      "x": 17,
+      "y": 10
+    },
+    {
+      "id": "desk8",
+      "kind": "desk",
+      "x": 12,
+      "y": 9
+    },
+    {
+      "id": "plant5",
+      "kind": "plant",
+      "x": 15,
+      "y": 10
+    },
+    {
+      "id": "rack4",
+      "kind": "rack",
+      "x": 13,
+      "y": 10
+    },
+    {
+      "id": "copier4",
+      "kind": "copier",
+      "x": 12,
+      "y": 8
+    },
+    {
+      "id": "vend7",
+      "kind": "vend",
+      "x": 15,
+      "y": 7
+    },
+    {
+      "id": "vend8",
+      "kind": "vend",
+      "x": 5,
+      "y": 6
+    }
+  ],
+  "truck": {
+    "x": 0,
+    "y": 11,
+    "w": 4,
+    "d": 2,
+    "dropX": 3,
+    "dropY": 10
+  },
+  "spawns": [
+    {
+      "x": 0,
+      "y": 5
+    },
+    {
+      "x": 1,
+      "y": 5
+    },
+    {
+      "x": 2,
+      "y": 5
+    },
+    {
+      "x": 0,
+      "y": 6
+    },
+    {
+      "x": 1,
+      "y": 6
+    },
+    {
+      "x": 2,
+      "y": 6
+    },
+    {
+      "x": 0,
+      "y": 7
+    },
+    {
+      "x": 1,
+      "y": 7
+    },
+    {
+      "x": 2,
+      "y": 7
+    },
+    {
+      "x": 0,
+      "y": 8
+    },
+    {
+      "x": 1,
+      "y": 8
+    },
+    {
+      "x": 2,
+      "y": 8
+    }
+  ],
+  "inspectors": [
+    {
+      "id": "insp1",
+      "path": [
+        {
+          "x": 5,
+          "y": 9
+        },
+        {
+          "x": 10,
+          "y": 9
+        },
+        {
+          "x": 11,
+          "y": 5
+        },
+        {
+          "x": 4,
+          "y": 6
+        }
+      ],
+      "speed": 1.6
+    },
+    {
+      "id": "insp2",
+      "path": [
+        {
+          "x": 9,
+          "y": 8
+        },
+        {
+          "x": 14,
+          "y": 7
+        },
+        {
+          "x": 15,
+          "y": 4
+        },
+        {
+          "x": 14,
+          "y": 9
+        }
+      ],
+      "speed": 1.4
+    }
+  ]
+}

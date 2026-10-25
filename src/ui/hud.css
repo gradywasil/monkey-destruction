@@ -1,0 +1,122 @@
+.hud{position:absolute;transform-origin:0 0;pointer-events:none;overflow:hidden;z-index:5;
+  --bg:#262b44;--hi:#3a4466;--lo:#181425;--ink:#ead4aa;--mute:#8b9bb4;--acc:#feae34;--acc2:#fee761;--red:#e43b44;--redlo:#a22633;--green:#63c74d;
+  /* safe-area insets in HUD px (the HUD is scaled by --k, set in platform/pwa.js; env() is device px) */
+  --k:1;--st:calc(env(safe-area-inset-top,0px) / var(--k));--sb:calc(env(safe-area-inset-bottom,0px) / var(--k));
+  font-family:Silkscreen,ui-monospace,monospace;color:var(--ink);font-size:11px;line-height:1}
+.hud *{box-sizing:border-box;font-family:inherit}
+.hud .px{background:var(--bg);border:3px solid var(--lo);box-shadow:inset 0 3px 0 var(--hi),inset 0 -3px 0 var(--lo);
+  clip-path:polygon(0 4px,4px 4px,4px 0,calc(100% - 4px) 0,calc(100% - 4px) 4px,100% 4px,100% calc(100% - 4px),calc(100% - 4px) calc(100% - 4px),calc(100% - 4px) 100%,4px 100%,4px calc(100% - 4px),0 calc(100% - 4px))}
+.hud button{font:inherit;color:inherit;cursor:pointer;pointer-events:auto;-webkit-tap-highlight-color:transparent}
+.hud button:active{transform:translateY(2px)}
+/* top bar: job + cash left, clock right */
+.hud .top{position:absolute;left:0;right:0;top:0;padding:calc(30px + var(--st)) calc(12px + env(safe-area-inset-right,0px) / var(--k)) 0 calc(12px + env(safe-area-inset-left,0px) / var(--k));
+  display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.hud .cashbox{min-width:0;max-width:220px;padding-top:2px;color:#fff;text-shadow:2px 2px 0 var(--lo)}
+.hud .cashbox small{display:block;max-width:160px;font-size:11px;color:var(--acc);margin-bottom:6px;line-height:1.2;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.hud .cash{display:block;font-size:26px;font-weight:700;line-height:1;color:var(--acc2);transform-origin:0 100%}
+.hud .cash.pop{animation:hud-pop .4s steps(4)}
+.hud .timer{width:104px;height:54px;flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--acc2)}
+.hud .timer .tm{font-size:22px;font-weight:700;line-height:1;padding-top:2px}
+.hud .timer small{font-size:11px;color:var(--mute);line-height:1}
+.hud .timer.late .tm{color:var(--red)}
+.hud .pause{position:absolute;right:124px;top:calc(34px + var(--st));width:44px;height:44px;display:flex;align-items:center;justify-content:center;gap:5px;padding:0;pointer-events:auto}
+.hud .pause i{display:block;width:6px;height:16px;background:var(--ink)}
+/* objective bar */
+.hud .objective{position:absolute;left:0;right:0;top:calc(88px + var(--st));padding:0 12px;border:0}
+.hud .orow{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;color:#fff;text-shadow:2px 2px 0 var(--lo);font-size:11px;font-weight:700}
+.hud .orow b{font-size:14px;color:var(--acc2)}
+.hud .bar{position:relative;height:14px;background:var(--lo);border:3px solid var(--bg);outline:2px solid var(--lo);padding:2px}
+.hud .bar i{display:block;height:100%;background:repeating-linear-gradient(90deg,var(--green) 0 6px,#3e8948 6px 8px);transition:width .25s steps(5)}
+.hud .fines{position:absolute;right:12px;top:-14px;font-size:11px;color:var(--red);text-shadow:1px 1px 0 var(--lo)}
+.hud .fines:empty{display:none}
+.hud .objective.hint .bar{outline-color:var(--acc)}
+/* nudge banner */
+.hud .nudge{position:absolute;left:12px;right:12px;top:calc(136px + var(--st));min-height:44px;padding:8px 12px 10px;display:flex;align-items:center;justify-content:center;text-align:center;
+  background:var(--hi);border-color:var(--acc);pointer-events:none;animation:hud-pop .3s steps(3)}
+.hud .nudge[hidden]{display:none}
+.hud .nudge b{font-size:12px;line-height:1.35;color:#fff;text-shadow:1px 1px 0 var(--lo)}
+/* toasts float just above the bottom controls */
+.hud .toasts{position:absolute;left:0;right:0;bottom:calc(150px + var(--sb));display:flex;flex-direction:column;align-items:center;gap:6px;z-index:4}
+.hud .toast{height:30px;display:flex;align-items:center;padding:0 12px;background:var(--hi);color:#fff;font-size:11px;white-space:nowrap}
+.hud .toast.warn{background:var(--redlo)}
+/* bottom: loot tray + hire/boost buttons */
+.hud .bot{position:absolute;left:0;right:0;bottom:0;padding:6px 10px calc(14px + var(--sb));display:flex;flex-direction:column;gap:6px;z-index:3}
+.hud .tray{display:flex;gap:6px;height:60px;overflow-x:auto;overflow-y:hidden;pointer-events:auto;touch-action:pan-x;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:0 0 2px}
+.hud .tray::-webkit-scrollbar{display:none}
+.hud .tray-empty{flex:1;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--mute);text-shadow:1px 1px 0 var(--lo)}
+.hud .tray-empty[hidden]{display:none}
+.hud .chip{position:relative;flex:none;width:82px;height:56px;padding:11px 5px 5px;display:flex;flex-direction:column;justify-content:space-between;align-items:stretch;text-align:left;min-width:0}
+.hud .chip .sw{position:absolute;left:0;right:0;top:0;height:5px;border:0}
+.hud .chip .nm{font-size:10px;font-weight:700;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:clip}
+.hud .chip .row{display:flex;justify-content:space-between;align-items:baseline;gap:4px}
+.hud .chip .ct{font-size:10px;color:var(--ink);background:var(--lo);padding:2px 3px 1px}
+.hud .chip .vl{font-size:11px;font-weight:700;color:var(--acc2)}
+.hud .chip.dim{opacity:.55}
+.hud .chip.dim .vl{color:var(--mute);font-size:10px}
+.hud .chip.sel{border-color:var(--acc);filter:brightness(1.25)}
+.hud .acts{display:flex;gap:8px;align-items:stretch}
+.hud .hirebtn{position:relative;flex:1;height:52px;padding:0 10px;display:grid;grid-template-columns:1fr auto;grid-template-rows:1fr 1fr;align-items:center;gap:2px 6px;background:var(--green);color:var(--lo);box-shadow:inset 0 3px 0 #a0e08b,inset 0 -5px 0 #3e8948;text-align:left}
+.hud .hirebtn .t{font-size:15px;font-weight:700;letter-spacing:.08em;align-self:end}
+.hud .hirebtn .s{grid-column:1;font-size:10px;font-weight:700;align-self:start;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hud .hirebtn .n{grid-column:2;grid-row:1/3;font-style:normal;font-size:11px;font-weight:700;background:var(--lo);color:var(--ink);padding:3px 4px 2px}
+.hud .hirebtn.poor{background:var(--hi);color:var(--ink);box-shadow:inset 0 3px 0 #5a6988,inset 0 -5px 0 var(--lo)}
+.hud .hirebtn.sel{border-color:var(--acc)}
+.hud .hirebtn .dot,.hud .boostbtn .dot{display:none;position:absolute;right:6px;top:6px;width:8px;height:8px;background:var(--acc2);border:2px solid var(--lo);text-decoration:none}
+.hud .hirebtn .dot{right:auto;left:auto;top:-2px;right:-2px}
+.hud .hirebtn .dot.on,.hud .boostbtn .dot.on{display:block}
+.hud .boostbtn{position:relative;width:84px;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:var(--hi);color:#fff}
+.hud .boostbtn .bi{width:0;height:0;border:7px solid transparent;border-bottom:10px solid var(--acc2);border-top:0}
+.hud .boostbtn .t{font-size:11px;font-weight:700}
+.hud .boostbtn .dot{background:var(--green)}
+.hud .boostbtn.sel{border-color:var(--acc)}
+/* hire + boost sheets */
+.hud.sheet-open{z-index:9}
+.hud .sheet{position:absolute;inset:0;z-index:8;pointer-events:none}
+.hud .sheet[hidden]{display:none}
+.hud .sheet .backdrop{position:absolute;inset:0;background:#18142566;pointer-events:auto}
+.hud .sheet .panel{position:absolute;left:8px;right:8px;bottom:calc(8px + var(--sb));padding:12px 12px 14px;display:flex;flex-direction:column;gap:10px;pointer-events:auto;animation:hud-rise .2s steps(4)}
+.hud .phead{display:flex;justify-content:space-between;align-items:center}
+.hud .phead b{font-size:14px;color:#fff}
+.hud .close{min-width:72px;height:44px;padding:0 10px;font-size:11px;font-weight:700;background:var(--hi)}
+.hud .brow{position:relative;display:flex;align-items:center;gap:10px;background:var(--lo);padding:8px 8px 8px 10px;min-height:60px}
+.hud .brow .sw{flex:none;width:6px;align-self:stretch;border:0}
+.hud .brow.ready{animation:hud-ready .45s steps(3) 4}
+.hud .brow.hint{filter:brightness(1.25)}
+.hud .binfo{flex:1;min-width:0;display:flex;flex-direction:column;gap:7px}
+.hud .binfo b{font-size:13px;color:#fff}
+.hud .binfo em{font-style:normal;color:var(--acc2);font-size:12px}
+.hud .binfo u{text-decoration:none;color:var(--green);font-size:10px;margin-left:6px}
+.hud .binfo u[hidden]{display:none}
+.hud .binfo span{font-size:11px;color:var(--mute);line-height:1.3}
+.hud .buy{min-width:96px;height:44px;padding:0 8px;font-size:12px;font-weight:700;background:var(--acc);color:var(--lo);box-shadow:inset 0 3px 0 var(--acc2),inset 0 -3px 0 #f77622}
+.hud .buy.poor{background:var(--hi);color:var(--mute);box-shadow:inset 0 3px 0 #5a6988,inset 0 -3px 0 var(--lo)}
+.hud .crewtag{align-self:flex-end;font-size:11px;color:#fff;text-shadow:1px 1px 0 var(--lo)}
+.hud .crewtag.full{color:var(--red)}
+/* action card */
+.hud .card{position:absolute;width:224px;padding:10px 10px 10px;display:flex;flex-direction:column;gap:8px;z-index:6;pointer-events:auto;animation:hud-card .16s steps(3)}
+.hud .card[hidden]{display:none}
+.hud .chead{display:flex;flex-direction:column;gap:5px}
+.hud .chead b{font-size:13px;color:#fff;text-shadow:1px 1px 0 var(--lo)}
+.hud .chead small{font-size:10px;color:var(--acc2)}
+.hud .cacts{display:flex;flex-direction:column;gap:6px}
+.hud .cbtn{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-height:46px;padding:8px 10px 7px;background:var(--hi);color:#fff;border:3px solid var(--lo);text-align:left;pointer-events:auto}
+.hud .cbtn b{font-size:12px;font-weight:700;letter-spacing:.06em}
+.hud .cbtn small{font-size:9px;color:var(--ink);opacity:.85;line-height:1.2}
+.hud .cbtn.primary{background:var(--acc);color:var(--lo);border-color:var(--lo);box-shadow:inset 0 3px 0 var(--acc2),inset 0 -3px 0 #f77622}
+.hud .cbtn.primary small{color:var(--lo)}
+.hud .cbtn.off{opacity:.5}
+.hud .float{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;font-size:12px;font-weight:700;color:var(--acc2);
+  text-shadow:1px 1px 0 var(--lo),-1px 1px 0 var(--lo),1px -1px 0 var(--lo),-1px -1px 0 var(--lo);animation:hud-float 1s steps(10) forwards}
+.hud .float.gold{color:var(--acc);font-size:13px}
+/* pulse a target (tutorial or nudge) */
+.hud .hint{animation:tut-blink .6s steps(2) infinite}
+.hud .hirebtn.hint{filter:brightness(1.25)}
+@keyframes tut-blink{0%{border-color:var(--acc)}100%{border-color:var(--lo)}}
+@keyframes hud-blink{50%{background:var(--red)}}
+@keyframes hud-float{from{transform:translate(-50%,-50%)}to{transform:translate(-50%,-34px);opacity:0}}
+@keyframes hud-card{from{transform:scale(.9);opacity:.4}to{transform:none;opacity:1}}
+@keyframes hud-pop{0%{transform:scale(1)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
+@keyframes hud-ready{0%{transform:translateY(0)}50%{transform:translateY(-5px)}100%{transform:translateY(0)}}
+@keyframes hud-rise{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.hud,.screens{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+@media (prefers-reduced-motion:reduce){.hud *{animation-duration:.01s!important;animation-iteration-count:1!important}}

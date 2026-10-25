@@ -1,0 +1,30 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>tutorial check</title>
+<link rel="stylesheet" href="../src/ui/hud.css">
+<link rel="stylesheet" href="../src/ui/tutorial.css">
+<style>
+  body{margin:0;background:#0e0b14;color:#ead4aa;font-family:monospace}
+  #wrap{position:relative;width:390px;height:844px;background:#1b1626;overflow:hidden}
+  #ctl{position:fixed;left:410px;top:10px}
+</style>
+<div id="wrap"></div>
+<div id="ctl"><button id="prev">prev</button> <button id="next">next</button> <span id="n"></span></div>
+<script type="module">
+import { TUTORIAL_STEPS, createTutorialView } from '../src/ui/tutorial.js';
+const wrap = document.getElementById('wrap');
+const canvas = document.createElement('div');
+canvas.style.left = '0px';
+canvas.style.top = '0px';
+const stage = { canvas, width: 390, height: 844, k: 1, onResize: () => () => {} };
+const view = createTutorialView(wrap, stage);
+let i = 0;
+const go = (d) => {
+  i = (i + d + TUTORIAL_STEPS.length) % TUTORIAL_STEPS.length;
+  view.show(TUTORIAL_STEPS[i]);
+  document.getElementById('n').textContent = TUTORIAL_STEPS[i].id;
+};
+document.getElementById('prev').onclick = () => go(-1);
+document.getElementById('next').onclick = () => go(1);
+go(0);
+</script>

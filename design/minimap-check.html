@@ -1,0 +1,34 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Minimap check</title>
+<link rel="stylesheet" href="../src/ui/minimap.css">
+<style>
+  body{margin:0;background:#181425;height:100vh;position:relative;overflow:hidden;color:#ead4aa;font:10px monospace}
+  #log{position:absolute;left:8px;bottom:8px}
+</style>
+<div id="stage"></div>
+<div id="log">tap the minimap</div>
+<script type="module">
+import { loadLevel } from '../src/sim/level.js';
+import { createMinimap } from '../src/ui/minimap.js';
+const grid = loadLevel(await (await fetch('../src/data/levels/dunmore-pike.json')).json());
+let cam = { x: 8, y: 6 };
+const camera = {
+  state: { viewW: 390, viewH: 844 },
+  screenToGrid(sx, sy) { return { x: cam.x + (sx - 195) / 60 + (sy - 422) / 120, y: cam.y + (sy - 422) / 120 - (sx - 195) / 60 }; },
+};
+const mini = createMinimap(document.getElementById('stage'), {
+  grid,
+  onFocus(x, y) { cam = { x, y }; document.getElementById('log').textContent = `focus ${x.toFixed(1)}, ${y.toFixed(1)}`; mini.update(snap, camera); },
+});
+const snap = {
+  crew: [
+    { role: 'breacher', x: 5.5, y: 8.5 }, { role: 'hauler', x: 7.5, y: 4.5 },
+    { role: 'rigger', x: 9.5, y: 3.5 }, { role: 'decoy', x: 10.5, y: 8.5 },
+  ],
+  inspectors: [{ x: 8.5, y: 6.5, hx: 1, hy: 0.4, range: 3.5, halfAngle: 0.6 }],
+  chains: [{ stations: [{ x: 6, y: 5 }, { x: 7, y: 6 }] }],
+};
+mini.update(snap, camera);
+</script>

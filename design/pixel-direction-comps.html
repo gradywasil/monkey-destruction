@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IMI: Hostile Takeover — Pixel Art Direction Comps</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Press+Start+2P&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#15161b;color:#e9e6df;font:14px/1.45 system-ui,-apple-system,sans-serif;padding:28px 16px 60px}
+h1{font-size:22px;margin:0 0 4px}
+.sub{color:#9a978f;max-width:780px;margin:0 0 28px}
+.row{display:flex;flex-wrap:wrap;gap:36px;justify-content:center}
+.dir{width:390px}
+.dir h2{font-size:16px;margin:0 0 2px}
+.dir .tag{color:#ffc83d;font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.dir ul{padding-left:18px;margin:12px 0 0;color:#bdb9af;font-size:13px}
+.spec{font:11px ui-monospace,Menlo,monospace;color:#8f8c84;margin-top:8px}
+.sw{display:flex;flex-wrap:wrap;gap:0;margin-top:8px}.sw i{width:calc(100%/16);height:14px}
+.phone{position:relative;width:390px;height:800px;overflow:hidden;border:6px solid #000;border-radius:38px;box-shadow:0 20px 50px #0008;--ink:#fff}
+.phone canvas.bg{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
+.ovl{position:absolute;inset:0;pointer-events:none}
+.ovl span{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;font-size:9px;line-height:1}
+.top,.quota,.manifest,.bot,.toast{position:absolute;left:0;right:0;z-index:3}
+.top{top:0;padding:30px 12px 0;display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.job small{display:block;font-size:8px;opacity:.8;margin-bottom:3px}
+.job b{font-size:11px;font-weight:700;display:block;line-height:1.3}
+.timer{padding:5px 9px;text-align:center;font-size:26px;line-height:1}
+.timer small{display:block;font-size:7px;margin-top:3px;opacity:.8}
+.quota{top:94px;padding:0 12px}
+.bar{height:14px}
+.bar i{display:block;height:100%}
+.qrow{display:flex;justify-content:space-between;font-size:8px;margin-top:5px}
+.toast{top:140px;left:50%;right:auto;transform:translateX(-50%);padding:6px 10px;font-size:9px;white-space:nowrap;width:max-content}
+.manifest{bottom:150px;padding:0 10px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.mf{padding:6px 7px;font-size:8px;line-height:1.5}.mf b{display:block;font-size:9px}.mf u{text-decoration:none;opacity:.75}
+.bot{bottom:0;padding:8px 10px 18px;display:flex;gap:8px;align-items:stretch}
+.crew{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.chip{display:flex;align-items:center;gap:6px;padding:6px;font-size:9px}
+.chip canvas{width:34px;height:31px;image-rendering:pixelated;flex:none}
+.chip span{display:block;font-size:7px;opacity:.75;margin-top:2px}
+.chip b{margin-left:auto;font-size:14px}
+.whistle{width:100px;border:0;font:inherit;font-size:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer}
+.whistle canvas{width:55px;height:55px;image-rendering:pixelated}
+/* stepped pixel corners */
+.px{clip-path:polygon(0 4px,4px 4px,4px 0,calc(100% - 4px) 0,calc(100% - 4px) 4px,100% 4px,100% calc(100% - 4px),calc(100% - 4px) calc(100% - 4px),calc(100% - 4px) 100%,4px 100%,4px calc(100% - 4px),0 calc(100% - 4px))}
+
+/* P1 Cozy */
+.P1{font-family:"Pixelify Sans",ui-monospace,monospace;color:#3e2731}
+.P1 .px{background:#ead4aa;border:3px solid #3e2731;box-shadow:inset 0 -4px 0 #e4a672,inset 0 3px 0 #fff3d6}
+.P1 .job{color:#fff;text-shadow:2px 2px 0 #3e2731}
+.P1 .qrow{color:#fff;text-shadow:1px 1px 0 #3e2731}
+.P1 .bar{background:#ead4aa;border:3px solid #3e2731;padding:2px}
+.P1 .bar i{background:repeating-linear-gradient(90deg,#f77622 0 6px,#feae34 6px 8px)}
+.P1 .toast{background:#e43b44!important;color:#fff;border-color:#3e2731!important;box-shadow:inset 0 -4px 0 #a22633!important}
+.P1 .whistle{background:#e43b44!important;color:#fff;box-shadow:inset 0 -5px 0 #a22633,inset 0 3px 0 #f6757a!important}
+.P1 .ovl span{font-weight:700;color:#fff;text-shadow:1px 1px 0 #3e2731,-1px 1px 0 #3e2731,1px -1px 0 #3e2731,-1px -1px 0 #3e2731}
+/* P2 Pico */
+.P2{font-family:"Press Start 2P",ui-monospace,monospace;color:#fff1e8}
+.P2 .px{background:#000;border:3px solid #fff1e8;box-shadow:none}
+.P2 .job b{font-size:8px}.P2 .job small{font-size:6px}.P2 .timer{font-size:20px;color:#ffec27}
+.P2 .timer small,.P2 .qrow,.P2 .chip,.P2 .chip span,.P2 .toast,.P2 .mf,.P2 .mf b,.P2 .whistle{font-size:6px}
+.P2 .chip b{font-size:10px}.P2 .mf b{font-size:7px}
+.P2 .job{color:#fff1e8;text-shadow:2px 2px 0 #000}
+.P2 .qrow{text-shadow:1px 1px 0 #000}
+.P2 .bar{background:#000;border:3px solid #fff1e8;padding:2px}
+.P2 .bar i{background:repeating-linear-gradient(90deg,#00e436 0 6px,#000 6px 8px)}
+.P2 .toast{background:#ff004d!important;border-color:#fff1e8!important}
+.P2 .whistle{background:#ff004d!important;border-color:#fff1e8!important;color:#fff1e8}
+.P2 .ovl span{font-size:6px;color:#fff1e8;text-shadow:1px 1px 0 #000}
+/* P3 Dusk */
+.P3{font-family:Silkscreen,ui-monospace,monospace;color:#fff4d6}
+.P3 .px{background:#2a1b3d;border:3px solid #120d1f;box-shadow:inset 0 3px 0 #6b4a7c,inset 0 -3px 0 #120d1f}
+.P3 .job small{color:#ffb38a}.P3 .job{text-shadow:2px 2px 0 #120d1f}
+.P3 .timer{color:#ffd45e}
+.P3 .qrow{text-shadow:1px 1px 0 #120d1f}
+.P3 .bar{background:#120d1f;border:3px solid #44305b;padding:2px}
+.P3 .bar i{background:repeating-linear-gradient(90deg,#ffb38a 0 6px,#d98a8a 6px 8px)}
+.P3 .toast{background:#8f2a3a!important;border-color:#120d1f!important;color:#ffd9a0}
+.P3 .whistle{background:#ffb38a!important;color:#2a1b3d;border-color:#120d1f!important;box-shadow:inset 0 -5px 0 #d98a8a,inset 0 3px 0 #ffd9a0!important}
+.P3 .ovl span{font-weight:700;color:#fff4d6;text-shadow:1px 1px 0 #120d1f}
+</style></head>
+<body>
+<h1>IMI: Hostile Takeover — pixel art direction comps</h1>
+<p class="sub">Same scene as the first round, built on direction B's isometric layout. It is now rendered on a real low-res pixel grid with a fixed palette and ordered dithering, and the HUD uses pixel fonts and sprite icons. These sprites are auto-pixelized from vector placeholders. They show scale, palette and mood, and final art would be hand-drawn at the chosen resolution.</p>
+<div class="row" id="row"></div>
+<script src="scene-iso.js"></script>
+<script>
+/* ---------- palettes ---------- */
+const PAL={
+ e32:['#be4a2f','#d77643','#ead4aa','#e4a672','#b86f50','#733e39','#3e2731','#a22633','#e43b44','#f77622','#feae34','#fee761','#63c74d','#3e8948','#265c42','#193c3e','#124e89','#0099db','#2ce8f5','#ffffff','#c0cbdc','#8b9bb4','#5a6988','#3a4466','#262b44','#181425','#ff0044','#68386c','#b55088','#f6757a','#e8b796','#c28569'],
+ pico:['#000000','#1D2B53','#7E2553','#008751','#AB5236','#5F574F','#C2C3C7','#FFF1E8','#FF004D','#FFA300','#FFEC27','#00E436','#29ADFF','#83769C','#FF77A8','#FFCCAA'],
+ dusk:['#120d1f','#2a1b3d','#44305b','#6b4a7c','#9a6a8f','#d98a8a','#ffb38a','#ffd9a0','#fff4d6','#1d2b3f','#2f4a63','#4a7287','#7db0b5','#bfe3d0','#3a2a1f','#6b4a2f','#a8703a','#e0a64a','#ffd45e','#e5473d','#8f2a3a','#5cd36b','#2f8f5a','#3b8cff']
+};
+const VB='-198 -358 396 826';
+const grad=(stops)=>`<defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1">${stops.map(([o,c])=>`<stop offset="${o}" stop-color="${c}"/>`).join('')}</linearGradient></defs><rect x="-198" y="-358" width="396" height="826" fill="url(#sk)"/>`;
+const cloud=(x,y,c)=>`<ellipse cx="${x}" cy="${y}" rx="46" ry="14" fill="${c}"/><ellipse cx="${x+22}" cy="${y-10}" rx="28" ry="14" fill="${c}"/><ellipse cx="${x-20}" cy="${y-6}" rx="22" ry="11" fill="${c}"/>`;
+
+/* ---------- themes ---------- */
+const base={font:'monospace',noText:true,vb:VB,grid:.28,fur:'#b86f50',face:'#e8b796',label:'#3e2731',net:'#63c74d'};
+const T1={...base,stroke:2.2,mstroke:1.9,line:'#3e2731',lt:.2,dk:.26,ms:1.35,eye:1.5,accent:'#fee761',
+ pal:{slab:'#733e39',pad:'#b86f50',fA:'#c0cbdc',fB:'#5a6988',fC:'#b55088',wall:'#ead4aa',wallLow:'#e8b796',rubble:'#c28569',door:'#a22633',part:'#f6757a',
+  desk:'#d77643',cab:'#8b9bb4',chair:'#68386c',rack:'#262b44',vend:'#e43b44',safe:'#5a6988',statue:'#feae34',ceo:'#be4a2f',mon:'#3a4466',truck:'#fee761',truckRail:'#feae34',glass:'#2ce8f5'},
+ deco:grad([[0,'#2d9be0'],[.3,'#2ce8f5'],[.62,'#2ce8f5'],[.7,'#ead4aa'],[1,'#ead4aa']])+cloud(-110,-250,'#ffffff')+cloud(120,-190,'#ffffff')+cloud(-120,260,'#ffffff')+cloud(130,300,'#ffffff')};
+
+const PD={'#AB5236':'#7E2553','#FFF1E8':'#C2C3C7','#FFCCAA':'#AB5236','#C2C3C7':'#83769C','#83769C':'#5F574F','#FFEC27':'#FFA300','#FFA300':'#AB5236','#FF004D':'#7E2553','#29ADFF':'#1D2B53','#1D2B53':'#000000','#5F574F':'#1D2B53','#7E2553':'#1D2B53','#FF77A8':'#7E2553','#008751':'#1D2B53','#00E436':'#008751'};
+const PL={'#AB5236':'#FFCCAA','#C2C3C7':'#FFF1E8','#83769C':'#C2C3C7','#5F574F':'#83769C','#1D2B53':'#5F574F','#FFEC27':'#FFF1E8','#FFA300':'#FFEC27','#FF004D':'#FF77A8','#29ADFF':'#FFF1E8','#7E2553':'#AB5236','#FF77A8':'#FFCCAA','#FFCCAA':'#FFF1E8','#008751':'#00E436'};
+const T2={...base,stroke:3,mstroke:2.6,line:'#000000',ms:1.9,eye:2.2,accent:'#FFEC27',fur:'#AB5236',face:'#FFCCAA',label:'#000',net:'#00E436',
+ tri:b=>[PL[b]||b,b,PD[b]||b],
+ pal:{slab:'#AB5236',pad:'#C2C3C7',fA:'#83769C',fB:'#5F574F',fC:'#FF77A8',wall:'#FFF1E8',wallLow:'#FFCCAA',rubble:'#C2C3C7',door:'#FF004D',part:'#FF77A8',
+  desk:'#AB5236',cab:'#C2C3C7',chair:'#83769C',rack:'#1D2B53',vend:'#FF004D',safe:'#C2C3C7',statue:'#FFA300',ceo:'#7E2553',mon:'#5F574F',truck:'#FFEC27',truckRail:'#FFA300',glass:'#29ADFF'},
+ deco:grad([[0,'#29ADFF'],[.4,'#29ADFF'],[.45,'#FFF1E8'],[.72,'#FFF1E8'],[.77,'#FFCCAA'],[1,'#FFCCAA']])+cloud(-110,-260,'#FFF1E8')+cloud(120,-200,'#FFF1E8')+cloud(-130,270,'#FFF1E8')+cloud(120,310,'#FFF1E8')};
+
+const sky=(()=>{let r='';[[-190,260,34],[-150,225,28],[-112,250,40],[-60,270,26],[70,240,36],[110,265,30],[150,230,40],[-30,215,22]].forEach(([x,y,w])=>{r+=`<rect x="${x}" y="${y}" width="${w}" height="${340-y}" fill="#44305b"/>`;for(let k=0;k<4;k++)r+=`<rect x="${x+4+(k%2)*12}" y="${y+8+Math.floor(k/2)*14}" width="4" height="5" fill="#ffd45e" opacity=".9"/>`});
+ let st='';[[-170,-330],[-120,-300],[-60,-340],[40,-320],[100,-345],[160,-300],[-150,-250],[140,-260],[10,-280]].forEach(([x,y])=>st+=`<rect x="${x}" y="${y}" width="3" height="3" fill="#fff4d6"/>`);
+ return grad([[0,'#2a1b3d'],[.3,'#6b4a7c'],[.52,'#d98a8a'],[.68,'#ffb38a'],[1,'#ffd9a0']])+st+`<circle cx="60" cy="150" r="46" fill="#fff4d6" opacity=".95"/>`+r})();
+const T3={...base,stroke:0,mstroke:2,line:'#2a1b3d',ms:1.35,eye:1.5,accent:'#ffd45e',fur:'#a8703a',face:'#ffd9a0',label:'#fff4d6',net:'#5cd36b',grid:.12,
+ tri:b=>[mix(b,'#fff4d6',.25),b,mix(b,'#2a1b3d',.45)],
+ pal:{slab:'#3a2a1f',pad:'#6b4a2f',fA:'#4a7287',fB:'#2f4a63',fC:'#6b4a7c',wall:'#ffd9a0',wallLow:'#d98a8a',rubble:'#9a6a8f',door:'#e5473d',part:'#9a6a8f',
+  desk:'#a8703a',cab:'#7db0b5',chair:'#3b8cff',rack:'#1d2b3f',vend:'#e5473d',safe:'#9a6a8f',statue:'#e0a64a',ceo:'#8f2a3a',mon:'#2f4a63',truck:'#ffd45e',truckRail:'#e0a64a',glass:'#ffd45e'},
+ deco:sky};
+
+/* ---------- pixelizer ---------- */
+const rgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+const BAY=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
+async function pixelize(svg,w,h,pal,dither){
+  svg=svg.replace('<svg ',`<svg width="${w}" height="${h}" `);
+  const img=new Image();img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);await img.decode();
+  const c=document.createElement('canvas');c.width=w;c.height=h;
+  const x=c.getContext('2d',{willReadFrequently:true});x.drawImage(img,0,0,w,h);
+  const d=x.getImageData(0,0,w,h),p=d.data,P=pal.map(rgb);
+  for(let j=0;j<h;j++)for(let i=0;i<w;i++){
+    const o=(j*w+i)*4,t=(BAY[(j&3)*4+(i&3)]/16-.47)*dither;
+    const r=p[o]+t,g=p[o+1]+t,b=p[o+2]+t;let best=0,bd=1e9;
+    for(let k=0;k<P.length;k++){const a=P[k],dr=r-a[0],dg=g-a[1],db=b-a[2],dd=2*dr*dr+4*dg*dg+3*db*db;if(dd<bd){bd=dd;best=k}}
+    p[o]=P[best][0];p[o+1]=P[best][1];p[o+2]=P[best][2];p[o+3]=255}
+  x.putImageData(d,0,0);return c;
+}
+
+/* ---------- pixel icons ---------- */
+function icon(c,kind,pk){
+  const x=c.getContext('2d'),D=pk.dark,r=(col,a,b,w,h)=>{x.fillStyle=col;x.fillRect(a,b,w,h)};
+  if(kind==='whistle'){
+    r(D,0,5,3,6);r(pk.y,1,6,1,4);r(D,3,3,3,10);r(pk.y,3,4,2,8);r(D,6,0,6,16);r(pk.y,7,1,4,14);r(pk.y2,9,3,2,10);r(D,12,1,2,14);return}
+  const cap={breacher:pk.y,hauler:pk.b,rigger:pk.g,decoy:'#555a66'}[kind];
+  r(D,0,5,3,5);r(D,9,5,3,5);r(pk.fur,1,6,2,3);r(pk.fur,9,6,2,3);
+  r(D,2,3,8,10);r(pk.fur,3,4,6,8);
+  r(pk.face,4,7,4,4);r(D,4,6,1,1);r(D,7,6,1,1);r(pk.mouth,5,10,2,1);
+  r(D,2,0,8,5);r(cap,3,1,6,3);r(D,2,4,8,1);
+  if(kind==='decoy'){r(D,3,6,3,2);r(D,6,6,3,2);r('#fff',4,6,1,1);r('#fff',7,6,1,1)}
+}
+const ICON_SIZE={whistle:[14,16],head:[12,14]};
+
+/* ---------- page ---------- */
+const hud=()=>`
+<div class="top"><div class="job"><small>JOB 04 · HOSTILE TAKEOVER</small><b>Dunmore &amp; Pike<br>Tax Services</b></div><div class="timer px">11:42<small>LEFT</small></div></div>
+<div class="quota"><div class="bar"><i style="width:63%"></i></div><div class="qrow"><span>SALVAGE 63%</span><span>$48,200 / $76,500</span></div></div>
+<div class="toast px">! INSPECTOR IN SERVER RM</div>
+<div class="manifest"><div class="mf px"><b>SERVER RACKS x3</b><u>$9,000</u></div><div class="mf px"><b>VAULT SAFE</b><u>$12,000</u></div><div class="mf px"><b>CEO DESK</b><u>$6,400</u></div></div>
+<div class="bot"><div class="crew">
+ <div class="chip px"><canvas data-i="breacher" width="12" height="14"></canvas><div>BREACH<span>2 smashing</span></div><b>4</b></div>
+ <div class="chip px"><canvas data-i="hauler" width="12" height="14"></canvas><div>HAUL<span>chain x1</span></div><b>21</b></div>
+ <div class="chip px"><canvas data-i="rigger" width="12" height="14"></canvas><div>RIG<span>1 window</span></div><b>2</b></div>
+ <div class="chip px"><canvas data-i="decoy" width="12" height="14"></canvas><div>DECOY<span>stalling</span></div><b>2</b></div></div>
+ <button class="whistle px"><canvas data-i="whistle" width="14" height="16"></canvas>WHISTLE</button></div>`;
+
+const cards=[
+ {cls:'P1',name:'P1 · Cozy Tycoon',tag:'Kairosoft-style · bright, outlined, friendly',T:T1,pal:'e32',scale:2,dither:12,
+  pk:{dark:'#3e2731',y:'#feae34',y2:'#fee761',b:'#0099db',g:'#63c74d',fur:'#b86f50',face:'#e8b796',mouth:'#c28569'},
+  spec:'189×394 canvas · 2× · 32 colours (Endesga-32) · 1px outlines',
+  ul:['Closest to direction B in pixel form: strong outlines keep every monkey readable at this size.','Monkeys are ~12px tall, so faces, hats and tools are all legible, and there’s room for hand-drawn animation.','Rich palette ramps allow soft shading and room-specific colour.','Risk: most pixels per frame, so the most art to produce and animate.']},
+ {cls:'P2',name:'P2 · Arcade 16',tag:'PICO-8-style · chunky, graphic, 16 colours',T:T2,pal:'pico',scale:3,dither:14,
+  pk:{dark:'#000000',y:'#FFEC27',y2:'#FFA300',b:'#29ADFF',g:'#00E436',fur:'#AB5236',face:'#FFCCAA',mouth:'#AB5236'},
+  spec:'126×263 canvas · 3× · 16 colours (PICO-8) · 1px black outlines',
+  ul:['Lowest art cost: tiny sprites, a fixed palette, and a look that’s instantly “indie game”.','Role colours (orange, blue, green, tan) are palette-native and clear at a glance.','Zoomed out, a 40-monkey swarm still reads as colour clumps.','Risk: monkeys are ~7px, so faces and tools become suggestions; you’d lean on animation and sound.']},
+ {cls:'P3',name:'P3 · Dusk Hi-bit',tag:'Moody lighting · outline-free scenery, rim-lit',T:T3,pal:'dusk',scale:2,dither:20,
+  pk:{dark:'#2a1b3d',y:'#ffd45e',y2:'#ffb38a',b:'#3b8cff',g:'#5cd36b',fur:'#a8703a',face:'#ffd9a0',mouth:'#a8703a'},
+  spec:'189×394 canvas · 2× · 24 custom colours · outlines on monkeys only',
+  ul:['Most atmosphere: a sunset-lit building with glowing windows makes “midnight demolition job” feel cinematic.','Outlines only on monkeys, so they pop against softer scenery.','The time-of-day idea gives each job a different palette (dawn strip mall, night bank HQ).','Risk: lower contrast between props and floor, so item readability needs care.']}
+];
+document.getElementById('row').innerHTML=cards.map(c=>`
+<section class="dir"><h2>${c.name}</h2><div class="tag">${c.tag}</div>
+<div class="phone ${c.cls}" id="${c.cls}"><canvas class="bg"></canvas><div class="ovl"></div>${hud()}</div>
+<div class="sw">${PAL[c.pal].map(h=>`<i style="background:${h};width:${100/PAL[c.pal].length>6.25?100/PAL[c.pal].length:6.25}%"></i>`).join('')}</div>
+<div class="spec">${c.spec}</div><ul>${c.ul.map(x=>`<li>${x}</li>`).join('')}</ul></section>`).join('');
+
+(async()=>{
+  for(const c of cards){
+    const el=document.getElementById(c.cls),W=378,H=788,w=Math.round(W/c.scale),h=Math.round(H/c.scale);
+    const svg=iso(c.T);const ov=iso.OV.filter(o=>!/OPEN PLAN|SERVER RM|C-SUITE/.test(o.t));
+    const cv=await pixelize(svg,w,h,PAL[c.pal],c.dither);
+    const bg=el.querySelector('canvas.bg');bg.width=w;bg.height=h;bg.getContext('2d').drawImage(cv,0,0);
+    const [vx,vy,vw,vh]=VB.split(' ').map(Number);
+    el.querySelector('.ovl').innerHTML=ov.map(o=>`<span style="left:${((o.x-vx)/vw*100).toFixed(2)}%;top:${((o.y-vy)/vh*100).toFixed(2)}%">${o.t.replace('↓','v').replace('▸','>').replace('▾','v').replace('·','-')}</span>`).join('');
+    el.querySelectorAll('canvas[data-i]').forEach(k=>icon(k,k.dataset.i,c.pk));
+  }
+})();
+</script></body></html>

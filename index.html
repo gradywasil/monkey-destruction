@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="theme-color" content="#181425">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Takeover">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/ui/hud.css">
+  <link rel="stylesheet" href="src/ui/screens.css">
+  <link rel="stylesheet" href="src/ui/tutorial.css">
+  <link rel="stylesheet" href="src/ui/modebar.css">
+  <title>IMI: Hostile Takeover</title>
+  <style>
+    html, body {
+      margin: 0;
+      background: #181425;
+      overflow: hidden;
+      height: 100dvh;
+      width: 100%;
+      overscroll-behavior: none;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    html { height: 100%; height: 100dvh; }
+    body { position: fixed; inset: 0; }
+    #app {
+      position: fixed;
+      inset: 0;
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+    canvas, #app * { -webkit-touch-callout: none; -webkit-user-drag: none; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script type="module" src="src/main.js"></script>
+  <script type="module">
+    import { initPwa } from './src/platform/pwa.js';
+    initPwa();
+    addEventListener('contextmenu', (e) => e.preventDefault());
+  </script>
+</body>
+</html>

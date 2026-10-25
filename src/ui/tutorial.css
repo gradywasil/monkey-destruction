@@ -1,0 +1,10 @@
+.hud.tut{z-index:7}
+.hud .coach{position:absolute;left:36px;right:36px;padding:8px 10px 10px;display:grid;grid-template-columns:1fr auto;gap:4px 8px;align-items:center;pointer-events:none}
+.hud .coach.high{top:calc(126px + var(--st))}
+.hud .coach.low{bottom:calc(162px + var(--sb))}
+.hud .coach small{grid-column:1/3;font-size:10px;color:var(--acc)}
+.hud .coach b{font-size:12px;line-height:1.4;color:#fff;text-shadow:1px 1px 0 var(--lo)}
+.hud .coach .skip{min-width:56px;height:44px;padding:0 8px;font-size:11px;background:var(--hi);border:2px solid var(--lo);color:var(--mute);pointer-events:auto}
+.hud .coach .arrow{display:none}
+.hud .hint{animation:tut-blink .8s steps(2) infinite}
+@keyframes tut-blink{0%{border-color:var(--acc)}100%{border-color:var(--lo)}}
